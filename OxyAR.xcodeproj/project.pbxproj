@@ -1,0 +1,639 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7309D485222F20F900978836 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309D484222F20F900978836 /* Target.swift */; };
+		7309D487222F21B200978836 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309D486222F21B200978836 /* Projectile.swift */; };
+		736A0EBB222240D5002FE727 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736A0EBA222240D5002FE727 /* GameObject.swift */; };
+		7373371C2213818B0036F7EE /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7373371B2213818B0036F7EE /* SplashView.swift */; };
+		7373371E2213855B0036F7EE /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7373371D2213855B0036F7EE /* GameView.swift */; };
+		7378E1DE22097C5800FDEC91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7378E1DD22097C5800FDEC91 /* AppDelegate.swift */; };
+		7378E1E022097C5800FDEC91 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 7378E1DF22097C5800FDEC91 /* art.scnassets */; };
+		7378E1E222097C5800FDEC91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7378E1E122097C5800FDEC91 /* ViewController.swift */; };
+		7378E1E522097C5800FDEC91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7378E1E322097C5800FDEC91 /* Main.storyboard */; };
+		7378E1E722097C5A00FDEC91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7378E1E622097C5A00FDEC91 /* Assets.xcassets */; };
+		7378E1EA22097C5A00FDEC91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7378E1E822097C5A00FDEC91 /* LaunchScreen.storyboard */; };
+		7378E1F522097C5B00FDEC91 /* OxyARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7378E1F422097C5B00FDEC91 /* OxyARTests.swift */; };
+		7378E20022097C5B00FDEC91 /* OxyARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7378E1FF22097C5B00FDEC91 /* OxyARUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7378E1F122097C5B00FDEC91 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7378E1D222097C5800FDEC91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7378E1D922097C5800FDEC91;
+			remoteInfo = OxyAR;
+		};
+		7378E1FC22097C5B00FDEC91 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7378E1D222097C5800FDEC91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7378E1D922097C5800FDEC91;
+			remoteInfo = OxyAR;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7309D484222F20F900978836 /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
+		7309D486222F21B200978836 /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		736A0EBA222240D5002FE727 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
+		7373371B2213818B0036F7EE /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		7373371D2213855B0036F7EE /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		7378E1DA22097C5800FDEC91 /* OxyAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OxyAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7378E1DD22097C5800FDEC91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7378E1DF22097C5800FDEC91 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		7378E1E122097C5800FDEC91 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7378E1E422097C5800FDEC91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7378E1E622097C5A00FDEC91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7378E1E922097C5A00FDEC91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7378E1EB22097C5A00FDEC91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7378E1F022097C5B00FDEC91 /* OxyARTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OxyARTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7378E1F422097C5B00FDEC91 /* OxyARTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OxyARTests.swift; sourceTree = "<group>"; };
+		7378E1F622097C5B00FDEC91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7378E1FB22097C5B00FDEC91 /* OxyARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OxyARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7378E1FF22097C5B00FDEC91 /* OxyARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OxyARUITests.swift; sourceTree = "<group>"; };
+		7378E20122097C5B00FDEC91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7378E1D722097C5800FDEC91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7378E1ED22097C5A00FDEC91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7378E1F822097C5B00FDEC91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		736A0EB9222240BA002FE727 /* Game State */ = {
+			isa = PBXGroup;
+			children = (
+				736A0EBA222240D5002FE727 /* GameObject.swift */,
+			);
+			path = "Game State";
+			sourceTree = "<group>";
+		};
+		7378E1D122097C5800FDEC91 = {
+			isa = PBXGroup;
+			children = (
+				7378E1DC22097C5800FDEC91 /* OxyAR */,
+				7378E1F322097C5B00FDEC91 /* OxyARTests */,
+				7378E1FE22097C5B00FDEC91 /* OxyARUITests */,
+				7378E1DB22097C5800FDEC91 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7378E1DB22097C5800FDEC91 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7378E1DA22097C5800FDEC91 /* OxyAR.app */,
+				7378E1F022097C5B00FDEC91 /* OxyARTests.xctest */,
+				7378E1FB22097C5B00FDEC91 /* OxyARUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7378E1DC22097C5800FDEC91 /* OxyAR */ = {
+			isa = PBXGroup;
+			children = (
+				736A0EB9222240BA002FE727 /* Game State */,
+				7392D6662212C66F00A076C1 /* Views */,
+				7392D6652212C66B00A076C1 /* Models */,
+				7378E1DD22097C5800FDEC91 /* AppDelegate.swift */,
+				7378E1DF22097C5800FDEC91 /* art.scnassets */,
+				7378E1E322097C5800FDEC91 /* Main.storyboard */,
+				7378E1E622097C5A00FDEC91 /* Assets.xcassets */,
+				7378E1E822097C5A00FDEC91 /* LaunchScreen.storyboard */,
+				7378E1EB22097C5A00FDEC91 /* Info.plist */,
+			);
+			path = OxyAR;
+			sourceTree = "<group>";
+		};
+		7378E1F322097C5B00FDEC91 /* OxyARTests */ = {
+			isa = PBXGroup;
+			children = (
+				7378E1F422097C5B00FDEC91 /* OxyARTests.swift */,
+				7378E1F622097C5B00FDEC91 /* Info.plist */,
+			);
+			path = OxyARTests;
+			sourceTree = "<group>";
+		};
+		7378E1FE22097C5B00FDEC91 /* OxyARUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7378E1FF22097C5B00FDEC91 /* OxyARUITests.swift */,
+				7378E20122097C5B00FDEC91 /* Info.plist */,
+			);
+			path = OxyARUITests;
+			sourceTree = "<group>";
+		};
+		7392D6652212C66B00A076C1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7309D484222F20F900978836 /* Target.swift */,
+				7309D486222F21B200978836 /* Projectile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7392D6662212C66F00A076C1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7378E1E122097C5800FDEC91 /* ViewController.swift */,
+				7373371B2213818B0036F7EE /* SplashView.swift */,
+				7373371D2213855B0036F7EE /* GameView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7378E1D922097C5800FDEC91 /* OxyAR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7378E20422097C5B00FDEC91 /* Build configuration list for PBXNativeTarget "OxyAR" */;
+			buildPhases = (
+				7378E1D622097C5800FDEC91 /* Sources */,
+				7378E1D722097C5800FDEC91 /* Frameworks */,
+				7378E1D822097C5800FDEC91 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OxyAR;
+			productName = OxyAR;
+			productReference = 7378E1DA22097C5800FDEC91 /* OxyAR.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7378E1EF22097C5A00FDEC91 /* OxyARTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7378E20722097C5B00FDEC91 /* Build configuration list for PBXNativeTarget "OxyARTests" */;
+			buildPhases = (
+				7378E1EC22097C5A00FDEC91 /* Sources */,
+				7378E1ED22097C5A00FDEC91 /* Frameworks */,
+				7378E1EE22097C5A00FDEC91 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7378E1F222097C5B00FDEC91 /* PBXTargetDependency */,
+			);
+			name = OxyARTests;
+			productName = OxyARTests;
+			productReference = 7378E1F022097C5B00FDEC91 /* OxyARTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7378E1FA22097C5B00FDEC91 /* OxyARUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7378E20A22097C5B00FDEC91 /* Build configuration list for PBXNativeTarget "OxyARUITests" */;
+			buildPhases = (
+				7378E1F722097C5B00FDEC91 /* Sources */,
+				7378E1F822097C5B00FDEC91 /* Frameworks */,
+				7378E1F922097C5B00FDEC91 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7378E1FD22097C5B00FDEC91 /* PBXTargetDependency */,
+			);
+			name = OxyARUITests;
+			productName = OxyARUITests;
+			productReference = 7378E1FB22097C5B00FDEC91 /* OxyARUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7378E1D222097C5800FDEC91 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Stephanie Angulo";
+				TargetAttributes = {
+					7378E1D922097C5800FDEC91 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					7378E1EF22097C5A00FDEC91 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 7378E1D922097C5800FDEC91;
+					};
+					7378E1FA22097C5B00FDEC91 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 7378E1D922097C5800FDEC91;
+					};
+				};
+			};
+			buildConfigurationList = 7378E1D522097C5800FDEC91 /* Build configuration list for PBXProject "OxyAR" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7378E1D122097C5800FDEC91;
+			productRefGroup = 7378E1DB22097C5800FDEC91 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7378E1D922097C5800FDEC91 /* OxyAR */,
+				7378E1EF22097C5A00FDEC91 /* OxyARTests */,
+				7378E1FA22097C5B00FDEC91 /* OxyARUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7378E1D822097C5800FDEC91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7378E1E022097C5800FDEC91 /* art.scnassets in Resources */,
+				7378E1EA22097C5A00FDEC91 /* LaunchScreen.storyboard in Resources */,
+				7378E1E722097C5A00FDEC91 /* Assets.xcassets in Resources */,
+				7378E1E522097C5800FDEC91 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7378E1EE22097C5A00FDEC91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7378E1F922097C5B00FDEC91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7378E1D622097C5800FDEC91 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7309D485222F20F900978836 /* Target.swift in Sources */,
+				7378E1E222097C5800FDEC91 /* ViewController.swift in Sources */,
+				7378E1DE22097C5800FDEC91 /* AppDelegate.swift in Sources */,
+				7373371E2213855B0036F7EE /* GameView.swift in Sources */,
+				7309D487222F21B200978836 /* Projectile.swift in Sources */,
+				7373371C2213818B0036F7EE /* SplashView.swift in Sources */,
+				736A0EBB222240D5002FE727 /* GameObject.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7378E1EC22097C5A00FDEC91 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7378E1F522097C5B00FDEC91 /* OxyARTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7378E1F722097C5B00FDEC91 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7378E20022097C5B00FDEC91 /* OxyARUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7378E1F222097C5B00FDEC91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7378E1D922097C5800FDEC91 /* OxyAR */;
+			targetProxy = 7378E1F122097C5B00FDEC91 /* PBXContainerItemProxy */;
+		};
+		7378E1FD22097C5B00FDEC91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7378E1D922097C5800FDEC91 /* OxyAR */;
+			targetProxy = 7378E1FC22097C5B00FDEC91 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7378E1E322097C5800FDEC91 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7378E1E422097C5800FDEC91 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7378E1E822097C5A00FDEC91 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7378E1E922097C5A00FDEC91 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7378E20222097C5B00FDEC91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7378E20322097C5B00FDEC91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7378E20522097C5B00FDEC91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MSDKGG6G29;
+				INFOPLIST_FILE = OxyAR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyAR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7378E20622097C5B00FDEC91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MSDKGG6G29;
+				INFOPLIST_FILE = OxyAR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyAR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7378E20822097C5B00FDEC91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MSDKGG6G29;
+				INFOPLIST_FILE = OxyARTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyARTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OxyAR.app/OxyAR";
+			};
+			name = Debug;
+		};
+		7378E20922097C5B00FDEC91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MSDKGG6G29;
+				INFOPLIST_FILE = OxyARTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyARTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OxyAR.app/OxyAR";
+			};
+			name = Release;
+		};
+		7378E20B22097C5B00FDEC91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MSDKGG6G29;
+				INFOPLIST_FILE = OxyARUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyARUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = OxyAR;
+			};
+			name = Debug;
+		};
+		7378E20C22097C5B00FDEC91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MSDKGG6G29;
+				INFOPLIST_FILE = OxyARUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyARUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = OxyAR;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7378E1D522097C5800FDEC91 /* Build configuration list for PBXProject "OxyAR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7378E20222097C5B00FDEC91 /* Debug */,
+				7378E20322097C5B00FDEC91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7378E20422097C5B00FDEC91 /* Build configuration list for PBXNativeTarget "OxyAR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7378E20522097C5B00FDEC91 /* Debug */,
+				7378E20622097C5B00FDEC91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7378E20722097C5B00FDEC91 /* Build configuration list for PBXNativeTarget "OxyARTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7378E20822097C5B00FDEC91 /* Debug */,
+				7378E20922097C5B00FDEC91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7378E20A22097C5B00FDEC91 /* Build configuration list for PBXNativeTarget "OxyARUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7378E20B22097C5B00FDEC91 /* Debug */,
+				7378E20C22097C5B00FDEC91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7378E1D222097C5800FDEC91 /* Project object */;
+}
