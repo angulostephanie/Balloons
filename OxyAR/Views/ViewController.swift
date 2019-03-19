@@ -17,13 +17,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     @IBOutlet weak var userVectorLabel: UILabel!
     @IBOutlet weak var projectileDirectionLabel: UILabel!
 
+    var canShoot: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let target = Target()
+        canShoot = true
         userVectorLabel.text = ""
         projectileDirectionLabel.text = ""
-        targetPositionLabel.text = "Target pos (" + (NSString(format: "%.2f", target.position.x) as String) + ", " + (NSString(format: "%.2f", target.position.y) as String) + ", " + (NSString(format: "%.2f", target.position.z) as String) + ")"
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -40,11 +41,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         sceneView.scene = SCNScene()
         sceneView.scene.physicsWorld.contactDelegate = self
         
-        // https://developer.apple.com/documentation/scenekit/scnscene/1524029-rootnode
-        // "All scene content—nodes, geometries and their materials, lights, cameras, and related objects—is organized in a node hierarchy with a single common root node."
-        sceneView.scene.rootNode.addChildNode(Target())
-        
-//        sceneView.scene.rootNode.addChildNode(boxNode) // explain this
+        addNewTarget()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,15 +82,27 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     }
     
     func fireMissile() {
-        let missile = Projectile()
-        let (direction, position) = self.getUserVector()
-        
-        missile.position = position
-        missile.physicsBody?.applyForce(direction, asImpulse: true)
-        
-        sceneView.scene.rootNode.addChildNode(missile)
+        if canShoot {
+            let missile = Projectile()
+            let (direction, position) = self.getUserVector()
+            
+            missile.position = position
+            missile.physicsBody?.applyForce(direction, asImpulse: true)
+            
+            sceneView.scene.rootNode.addChildNode(missile)
+            canShoot = false
+        } else {
+            print("can't shoot yet")
+        }
     }
     
+    func addNewTarget() {
+        // https://developer.apple.com/documentation/scenekit/scnscene/1524029-rootnode
+        // "All scene content—nodes, geometries and their materials, lights, cameras, and related objects—is organized in a node hierarchy with a single common root node."
+        let target = Target()
+        targetPositionLabel.text = "Target pos (" + (NSString(format: "%.2f", target.position.x) as String) + ", " + (NSString(format: "%.2f", target.position.y) as String) + ", " + (NSString(format: "%.2f", target.position.z) as String) + ")"
+        sceneView.scene.rootNode.addChildNode(target)
+    }
     
     // MARK: - Contact Delegate
     
@@ -106,14 +116,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             hitTarget = contact.nodeA
         }
         projectile.removeFromParentNode()
-
+        self.canShoot = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             hitTarget.removeFromParentNode()
-            // add a new target
-            let target = Target()
-            self.targetPositionLabel.text = "Target pos (" + (NSString(format: "%.2f", target.position.x) as String) + ", " + (NSString(format: "%.2f", target.position.y) as String) + ", " + (NSString(format: "%.2f", target.position.z) as String) + ")"
-            self.sceneView.scene.rootNode.addChildNode(target)
+            self.addNewTarget()
         })
             
     }
@@ -128,6 +135,33 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         return node
     }
 */
+
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        let zDistance =  self.sceneView.session.currentFrame?.camera.transform.columns.3.z
+        let farAwayProjectiles = self.sceneView?.scene.rootNode.childNodes(passingTest: { (node, stop) -> Bool in
+            if (node.name != nil) {
+                if (node.name == "Projectile") {
+                    if let zDistance = zDistance {
+                        // https://stackoverflow.com/questions/52565937/arkit-after-apply-force-get-location-of-node
+                        if (abs(zDistance - node.presentation.position.z ) > 1.0) {
+                            return true
+                        }
+                    }
+                   
+                }
+            }
+            return false
+        })
+        
+        
+        if let arr: [SCNNode] = farAwayProjectiles {
+            for projectile in arr {
+                projectile.removeFromParentNode()
+                print("REMOVING PROJECTILE")
+                canShoot = true
+            }
+        }
+    }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user

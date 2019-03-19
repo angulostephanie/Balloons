@@ -23,18 +23,18 @@ class Target: SCNNode {
         self.geometry?.materials = [material]
         
         self.position = createRandomVector3()
-        print(self.position)
         self.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
         self.physicsBody?.isAffectedByGravity = false
         self.physicsBody?.categoryBitMask = Constants.CollisionCategory.projectile.rawValue
         self.physicsBody?.contactTestBitMask = Constants.CollisionCategory.target.rawValue
+        self.name = "Target"
         
     }
     
     private func createRandomVector3 () -> SCNVector3 {
         let randomDouble = Double.random(in: -0.4...0.1)
         let randomDouble2 = Double.random(in: -0.3...0.3)
-        return SCNVector3(randomDouble, randomDouble2, -1)
+        return SCNVector3(randomDouble, randomDouble2, -0.7)
     }
     
     private func addRotation() {

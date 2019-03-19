@@ -25,6 +25,7 @@ class Projectile: SCNNode {
         self.physicsBody?.isAffectedByGravity = false
         self.physicsBody?.categoryBitMask = Constants.CollisionCategory.target.rawValue
         self.physicsBody?.contactTestBitMask = Constants.CollisionCategory.projectile.rawValue
+        self.name = "Projectile"
     }
     
     required init?(coder aDecoder: NSCoder) {
