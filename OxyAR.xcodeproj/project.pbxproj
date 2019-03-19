@@ -20,6 +20,7 @@
 		7378E1EA22097C5A00FDEC91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7378E1E822097C5A00FDEC91 /* LaunchScreen.storyboard */; };
 		7378E1F522097C5B00FDEC91 /* OxyARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7378E1F422097C5B00FDEC91 /* OxyARTests.swift */; };
 		7378E20022097C5B00FDEC91 /* OxyARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7378E1FF22097C5B00FDEC91 /* OxyARUITests.swift */; };
+		73AF84DD2240B71500C59B4A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AF84DC2240B71500C59B4A /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		7378E1FB22097C5B00FDEC91 /* OxyARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OxyARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7378E1FF22097C5B00FDEC91 /* OxyARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OxyARUITests.swift; sourceTree = "<group>"; };
 		7378E20122097C5B00FDEC91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73AF84DC2240B71500C59B4A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				7378E1E622097C5A00FDEC91 /* Assets.xcassets */,
 				7378E1E822097C5A00FDEC91 /* LaunchScreen.storyboard */,
 				7378E1EB22097C5A00FDEC91 /* Info.plist */,
+				73AF84DC2240B71500C59B4A /* Constants.swift */,
 			);
 			path = OxyAR;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				7309D487222F21B200978836 /* Projectile.swift in Sources */,
 				7373371C2213818B0036F7EE /* SplashView.swift in Sources */,
 				736A0EBB222240D5002FE727 /* GameObject.swift in Sources */,
+				73AF84DD2240B71500C59B4A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +484,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MSDKGG6G29;
 				INFOPLIST_FILE = OxyAR/Info.plist;
@@ -487,8 +492,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyComps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -498,6 +504,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MSDKGG6G29;
 				INFOPLIST_FILE = OxyAR/Info.plist;
@@ -505,8 +512,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stephangulo.OxyComps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

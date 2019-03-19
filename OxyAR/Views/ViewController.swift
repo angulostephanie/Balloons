@@ -11,19 +11,19 @@ import SceneKit
 import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
-
-    struct CollisionCategory: OptionSet {
-        let rawValue: Int
-        static let missiles  = CollisionCategory(rawValue: 1 << 0)
-        static let projectile = CollisionCategory(rawValue: 1 << 1)
-    }
     
-    @IBOutlet weak var counter: UILabel!
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var targetPositionLabel: UILabel!
+    @IBOutlet weak var userVectorLabel: UILabel!
+    @IBOutlet weak var projectileDirectionLabel: UILabel!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let target = Target()
+        userVectorLabel.text = ""
+        projectileDirectionLabel.text = ""
+        targetPositionLabel.text = "Target pos (" + (NSString(format: "%.2f", target.position.x) as String) + ", " + (NSString(format: "%.2f", target.position.y) as String) + ", " + (NSString(format: "%.2f", target.position.z) as String) + ")"
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -34,30 +34,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         sceneView.autoenablesDefaultLighting = true
         sceneView.automaticallyUpdatesLighting = true
-        
-        
-        let boxNode = createBoxNode(with: 0.1)
-        boxNode.position = SCNVector3(-0.4, 0.1, -0.4)
-        boxNode.name = "box"
-        
-        let boxNode2 = createBoxNode(with: 0.1)
-        boxNode2.position = SCNVector3(-0.7, 0.1, -0.7)
-        boxNode2.name = "box"
-        
-        boxNode.physicsBody?.categoryBitMask = CollisionCategory.projectile.rawValue
-        boxNode.physicsBody?.contactTestBitMask = CollisionCategory.missiles.rawValue
-        boxNode.physicsBody?.collisionBitMask = 0
-        
-        boxNode2.physicsBody?.categoryBitMask = CollisionCategory.projectile.rawValue
-        boxNode2.physicsBody?.contactTestBitMask = CollisionCategory.missiles.rawValue
-        boxNode2.physicsBody?.collisionBitMask = 0
+
         // Set the scene to the view
         
         sceneView.scene = SCNScene()
         sceneView.scene.physicsWorld.contactDelegate = self
-       // print(sceneView.scene.physicsWorld.contactDelegate)
-        sceneView.scene.rootNode.addChildNode(boxNode) // explain this
-        sceneView.scene.rootNode.addChildNode(boxNode2)
+        
+        // https://developer.apple.com/documentation/scenekit/scnscene/1524029-rootnode
+        // "All scene content—nodes, geometries and their materials, lights, cameras, and related objects—is organized in a node hierarchy with a single common root node."
+        sceneView.scene.rootNode.addChildNode(Target())
+        
+//        sceneView.scene.rootNode.addChildNode(boxNode) // explain this
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,17 +67,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     }
     
     @IBAction func onTap(_ sender: Any) {
-        /*
-        let randomDouble = Double.random(in: -1...1)
-        let randomDouble2 = Double.random(in: -0.5...0.5)
-        let boxNode = createBoxNode(with: 0.05)
-        boxNode.position = SCNVector3(randomDouble, randomDouble2, randomDouble) // 1 meter in front of camera
-        boxNode.constraints = [SCNBillboardConstraint()]
-        */
-        // Set the scene to the view
-        // sceneView.scene.rootNode.addChildNode(boxNode)
-        print("tap")
-        print("fire!!!")
         fireMissile()
     }
     
@@ -100,97 +76,46 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             let dir = SCNVector3(-1 * mat.m31, -1 * mat.m32, -1 * mat.m33) // orientation of camera in world space
             let pos = SCNVector3(mat.m41, mat.m42, mat.m43) // location of camera in world space
             
+            projectileDirectionLabel.text = "Projectile dir: at (" + (NSString(format: "%.2f", dir.x) as String) + ", " + (NSString(format: "%.2f", dir.y) as String) + ", " + (NSString(format: "%.2f", dir.z) as String) + ")"
+            userVectorLabel.text = "User pos: (" + (NSString(format: "%.2f", pos.x) as String) + ", " + (NSString(format: "%.2f", pos.y) as String) + ", " + (NSString(format: "%.2f", pos.z) as String) + ")"
             return (dir, pos)
         }
         return (SCNVector3(0, 0, -1), SCNVector3(0, 0, -0.2))
     }
     
-    func createMissile(with radius: CGFloat) -> SCNNode {
-        let geometry = SCNSphere(radius: radius)
-        let shape = SCNPhysicsShape(geometry: geometry, options: nil)
-
-        let material = SCNMaterial()
-        material.diffuse.contents = UIColor.red
-        material.isDoubleSided = true
-        geometry.materials = [material]
-        let sphereNode = SCNNode(geometry: geometry)
-        
-        sphereNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
-        sphereNode.physicsBody?.isAffectedByGravity = false
-        sphereNode.physicsBody?.categoryBitMask = CollisionCategory.missiles.rawValue
-        sphereNode.physicsBody?.contactTestBitMask = CollisionCategory.projectile.rawValue
-        sphereNode.physicsBody?.collisionBitMask = CollisionCategory.projectile.rawValue
-        return sphereNode
-    }
-    
     func fireMissile() {
-        let missile = createMissile(with: 0.03)
+        let missile = Projectile()
         let (direction, position) = self.getUserVector()
         
         missile.position = position
         missile.physicsBody?.applyForce(direction, asImpulse: true)
+        
         sceneView.scene.rootNode.addChildNode(missile)
     }
     
-    func createSphereNode(with radius: CGFloat) -> SCNNode {
-        //let image = UIImage(named: "art.scnassets/earth.png")
-        let geometry = SCNSphere(radius: radius)
-        let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "art.scnassets/earth.png")
-        material.isDoubleSided = true
-        geometry.materials = [material]
-        let sphereNode = SCNNode(geometry: geometry)
-        print("hello")
-
-        return addRotationToNode(with: sphereNode)
-    }
-
-    func createBoxNode(with len: CGFloat) -> SCNNode {
-        let geometry = SCNBox(width: len, height: len, length: len, chamferRadius: 0)
-        let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "art.scnassets/brick.png")
-        geometry.materials = [material]
-        
-        let boxNode = SCNNode(geometry: geometry)
-        print("box")
-        
-        return addRotationToNode(with: boxNode)
-    }
-    
-    func addRotationToNode(with node:SCNNode) -> SCNNode {
-        let rotateOnce = SCNAction.rotateBy(x: 0, y: 2*CGFloat.pi, z: 0, duration: 4)
-        let rotateSequence = SCNAction.repeatForever(rotateOnce)
-        node.runAction(rotateSequence)
-        return node
-    }
-    func addAnimationToNode(with node:SCNNode) -> SCNNode {
-        let moveDown = SCNAction.move(by: SCNVector3(0, -0.2, 0), duration: 1)
-        let moveUp = SCNAction.move(by: SCNVector3(0,0.2,0), duration: 1)
-        let waitAction = SCNAction.wait(duration: 0.20)
-        let hoverSequence = SCNAction.sequence([moveUp,waitAction,moveDown])
-        let loopSequence = SCNAction.repeatForever(hoverSequence)
-        
-        node.runAction(loopSequence)
-        return node
-    }
     
     // MARK: - Contact Delegate
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         
-        print("hello, collision! " + contact.nodeA.name! + " hit " + contact.nodeB.name!)
+        var projectile: SCNNode = contact.nodeA
+        var hitTarget: SCNNode = contact.nodeB
         
-        if contact.nodeA.physicsBody?.categoryBitMask == CollisionCategory.target.rawValue
-            || contact.nodeB.physicsBody?.categoryBitMask == CollisionCategory.target.rawValue {
-            
-            
-            print("hit!!!!")
-            DispatchQueue.main.async {
-                contact.nodeA.removeFromParentNode()
-                contact.nodeB.removeFromParentNode()
-                
-            }
+        if contact.nodeB.physicsBody?.categoryBitMask == Constants.CollisionCategory.target.rawValue {
+            projectile = contact.nodeB
+            hitTarget = contact.nodeA
         }
+        projectile.removeFromParentNode()
+
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
+            hitTarget.removeFromParentNode()
+            // add a new target
+            let target = Target()
+            self.targetPositionLabel.text = "Target pos (" + (NSString(format: "%.2f", target.position.x) as String) + ", " + (NSString(format: "%.2f", target.position.y) as String) + ", " + (NSString(format: "%.2f", target.position.z) as String) + ")"
+            self.sceneView.scene.rootNode.addChildNode(target)
+        })
+            
     }
     
     // MARK: - ARSCNViewDelegate

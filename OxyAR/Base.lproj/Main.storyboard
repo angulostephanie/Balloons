@@ -60,33 +60,48 @@
                                     <outletCollection property="gestureRecognizers" destination="hQ4-yk-Iy9" appends="YES" id="OsL-zs-ISR"/>
                                 </connections>
                             </arscnView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhR-Xz-bQg">
-                                <rect key="frame" x="0.0" y="614" width="375" height="53"/>
-                                <gestureRecognizers/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Box Position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNB-qp-IZh">
+                                <rect key="frame" x="16" y="614" width="133" height="27"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="hQ4-yk-Iy9" appends="YES" id="wC5-IW-an2"/>
-                                </connections>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Missile Direction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKm-cV-UGC">
+                                <rect key="frame" x="16" y="533" width="183" height="28"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
+                                <color key="textColor" red="0.49390543190000002" green="0.13264174649999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Vector" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4R-Is-0Si">
+                                <rect key="frame" x="16" y="573" width="124" height="27"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                <color key="textColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="jhR-Xz-bQg" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="5Hp-f4-P8Q"/>
+                            <constraint firstItem="J4R-Is-0Si" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="553" id="1jZ-Tc-JFk"/>
+                            <constraint firstItem="vNB-qp-IZh" firstAttribute="top" secondItem="J4R-Is-0Si" secondAttribute="bottom" constant="14" id="1t2-ms-oAt"/>
+                            <constraint firstItem="J4R-Is-0Si" firstAttribute="leading" secondItem="vNB-qp-IZh" secondAttribute="leading" id="4LD-XT-whJ"/>
+                            <constraint firstItem="jKm-cV-UGC" firstAttribute="leading" secondItem="J4R-Is-0Si" secondAttribute="leading" id="GWX-4l-K0p"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vNB-qp-IZh" secondAttribute="trailing" symbolic="YES" id="JOb-b5-jdu"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jKm-cV-UGC" secondAttribute="trailing" symbolic="YES" id="UyQ-VZ-zaw"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
-                            <constraint firstItem="jhR-Xz-bQg" firstAttribute="trailing" secondItem="BrB-h1-WRS" secondAttribute="trailing" id="ego-yg-knG"/>
-                            <constraint firstItem="jhR-Xz-bQg" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="594" id="k95-Ff-twU"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="J4R-Is-0Si" secondAttribute="trailing" symbolic="YES" id="e4F-Lr-ncr"/>
+                            <constraint firstItem="J4R-Is-0Si" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leadingMargin" id="nd5-XU-LlV"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
-                            <constraint firstItem="jhR-Xz-bQg" firstAttribute="leading" secondItem="BrB-h1-WRS" secondAttribute="leading" id="xat-y0-17s"/>
+                            <constraint firstItem="jKm-cV-UGC" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="513" id="seO-qY-OtP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
-                        <outlet property="counter" destination="jhR-Xz-bQg" id="aXf-6q-525"/>
+                        <outlet property="projectileDirectionLabel" destination="jKm-cV-UGC" id="4dh-co-Tma"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="targetPositionLabel" destination="vNB-qp-IZh" id="7vL-pL-vXJ"/>
+                        <outlet property="userVectorLabel" destination="J4R-Is-0Si" id="3Wb-Jk-wHU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

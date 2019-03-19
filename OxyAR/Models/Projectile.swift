@@ -10,23 +10,21 @@ import Foundation
 
 import SceneKit
 
-class Bullet: SCNNode {
+class Projectile: SCNNode {
     override init () {
         super.init()
         let geometry = SCNSphere(radius: 0.03)
         let shape = SCNPhysicsShape(geometry: geometry, options: nil)
-        
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.red
+        material.diffuse.contents = UIColor.black
         material.isDoubleSided = true
-        geometry.materials = [material]
-        let sphereNode = SCNNode(geometry: geometry)
         
-        sphereNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
-        sphereNode.physicsBody?.isAffectedByGravity = false
-        sphereNode.physicsBody?.categoryBitMask = CollisionCategory.missiles.rawValue
-        sphereNode.physicsBody?.contactTestBitMask = CollisionCategory.target.rawValue
-        
+        self.geometry = geometry
+        self.geometry?.materials = [material]
+        self.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
+        self.physicsBody?.isAffectedByGravity = false
+        self.physicsBody?.categoryBitMask = Constants.CollisionCategory.target.rawValue
+        self.physicsBody?.contactTestBitMask = Constants.CollisionCategory.projectile.rawValue
     }
     
     required init?(coder aDecoder: NSCoder) {
