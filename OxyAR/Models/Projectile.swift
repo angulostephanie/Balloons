@@ -21,6 +21,7 @@ class Projectile: SCNNode {
         
         self.geometry = geometry
         self.geometry?.materials = [material]
+        // EXPLAIN THIS
         self.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
         self.physicsBody?.isAffectedByGravity = false
         self.physicsBody?.categoryBitMask = Constants.CollisionCategory.target.rawValue

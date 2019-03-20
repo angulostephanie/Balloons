@@ -60,48 +60,47 @@
                                     <outletCollection property="gestureRecognizers" destination="hQ4-yk-Iy9" appends="YES" id="OsL-zs-ISR"/>
                                 </connections>
                             </arscnView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Box Position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNB-qp-IZh">
-                                <rect key="frame" x="16" y="614" width="133" height="27"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6x3-Ls-AME">
+                                <rect key="frame" x="16" y="48" width="69.5" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Missile Direction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKm-cV-UGC">
-                                <rect key="frame" x="16" y="533" width="183" height="28"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
-                                <color key="textColor" red="0.49390543190000002" green="0.13264174649999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hit" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5l-SR-LQ7">
+                                <rect key="frame" x="16" y="92" width="34" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="1" green="0.074743433489999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Vector" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4R-Is-0Si">
-                                <rect key="frame" x="16" y="573" width="124" height="27"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
-                                <color key="textColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a57-aS-FOH">
+                                <rect key="frame" x="126" y="593" width="123.5" height="54"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="45"/>
+                                <color key="textColor" red="0.45710915299999999" green="0.82941099019999998" blue="0.0071257248060000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="J4R-Is-0Si" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="553" id="1jZ-Tc-JFk"/>
-                            <constraint firstItem="vNB-qp-IZh" firstAttribute="top" secondItem="J4R-Is-0Si" secondAttribute="bottom" constant="14" id="1t2-ms-oAt"/>
-                            <constraint firstItem="J4R-Is-0Si" firstAttribute="leading" secondItem="vNB-qp-IZh" secondAttribute="leading" id="4LD-XT-whJ"/>
-                            <constraint firstItem="jKm-cV-UGC" firstAttribute="leading" secondItem="J4R-Is-0Si" secondAttribute="leading" id="GWX-4l-K0p"/>
+                            <constraint firstItem="6x3-Ls-AME" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leadingMargin" id="1IR-vL-78m"/>
+                            <constraint firstAttribute="bottom" secondItem="a57-aS-FOH" secondAttribute="bottom" constant="20" symbolic="YES" id="2ff-bV-Ehe"/>
+                            <constraint firstItem="U5l-SR-LQ7" firstAttribute="top" secondItem="6x3-Ls-AME" secondAttribute="bottom" constant="14" id="7yc-y8-4kP"/>
+                            <constraint firstItem="U5l-SR-LQ7" firstAttribute="leading" secondItem="6x3-Ls-AME" secondAttribute="leading" id="B49-we-Pok"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vNB-qp-IZh" secondAttribute="trailing" symbolic="YES" id="JOb-b5-jdu"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jKm-cV-UGC" secondAttribute="trailing" symbolic="YES" id="UyQ-VZ-zaw"/>
+                            <constraint firstItem="a57-aS-FOH" firstAttribute="centerX" secondItem="BrB-h1-WRS" secondAttribute="centerX" id="PsM-hS-TIc"/>
+                            <constraint firstItem="6x3-Ls-AME" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="28" id="STv-16-IXb"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="J4R-Is-0Si" secondAttribute="trailing" symbolic="YES" id="e4F-Lr-ncr"/>
-                            <constraint firstItem="J4R-Is-0Si" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leadingMargin" id="nd5-XU-LlV"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U5l-SR-LQ7" secondAttribute="trailing" symbolic="YES" id="b1Y-JP-x2o"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6x3-Ls-AME" secondAttribute="trailing" symbolic="YES" id="gxb-mR-oPx"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
-                            <constraint firstItem="jKm-cV-UGC" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="513" id="seO-qY-OtP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
-                        <outlet property="projectileDirectionLabel" destination="jKm-cV-UGC" id="4dh-co-Tma"/>
+                        <outlet property="hitLabel" destination="U5l-SR-LQ7" id="eCM-SS-oZt"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
-                        <outlet property="targetPositionLabel" destination="vNB-qp-IZh" id="7vL-pL-vXJ"/>
-                        <outlet property="userVectorLabel" destination="J4R-Is-0Si" id="3Wb-Jk-wHU"/>
+                        <outlet property="scoreLabel" destination="6x3-Ls-AME" id="618-Zr-8QV"/>
+                        <outlet property="timerLabel" destination="a57-aS-FOH" id="BGM-zF-TMt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
