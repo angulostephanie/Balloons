@@ -1,54 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bcU-gU-Gkc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Splash View-->
+        <!--Splash View Controller-->
         <scene sceneID="ujr-Pc-q0N">
             <objects>
-                <viewController id="bcU-gU-Gkc" customClass="SplashView" customModule="OxyAR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bcU-gU-Gkc" customClass="SplashViewController" customModule="OxyAR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lH2-Va-xx0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bTP-KA-9Tv">
-                                <rect key="frame" x="89" y="485" width="41" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" title="Join"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8yD-Rm-2Ld">
+                                <rect key="frame" x="16" y="422" width="343" height="225"/>
+                                <color key="backgroundColor" red="0.76769107580184937" green="0.79107111692428589" blue="0.85749989748001099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gameCell" rowHeight="90" id="kSH-pC-BfK" customClass="GameCell" customModule="OxyAR" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kSH-pC-BfK" id="yrt-IK-phT">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="89.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejL-dz-kno">
+                                                    <rect key="frame" x="278" y="28.5" width="50" height="33"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="wBO-i0-2pQ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <state key="normal" title="join">
+                                                        <color key="titleColor" red="0.16627832209263799" green="0.59545909391713558" blue="0.80552482508629442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="joinBtn:" destination="kSH-pC-BfK" eventType="touchUpInside" id="PT1-id-Y5d"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="game name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PiQ-9G-OLg">
+                                                    <rect key="frame" x="18" y="23" width="210" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="210" id="q1C-NV-Kvi"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ejL-dz-kno" secondAttribute="trailing" constant="15" id="MCD-Ez-r04"/>
+                                                <constraint firstItem="ejL-dz-kno" firstAttribute="centerY" secondItem="yrt-IK-phT" secondAttribute="centerY" id="Mv0-AO-4l8"/>
+                                                <constraint firstItem="ejL-dz-kno" firstAttribute="centerY" secondItem="PiQ-9G-OLg" secondAttribute="centerY" id="Puh-i1-Nle"/>
+                                                <constraint firstItem="PiQ-9G-OLg" firstAttribute="top" secondItem="yrt-IK-phT" secondAttribute="topMargin" constant="12" id="Sq9-nd-96b"/>
+                                                <constraint firstItem="PiQ-9G-OLg" firstAttribute="leading" secondItem="yrt-IK-phT" secondAttribute="leadingMargin" constant="3" id="lg7-Bg-ZVb"/>
+                                                <constraint firstItem="ejL-dz-kno" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PiQ-9G-OLg" secondAttribute="trailing" constant="8" symbolic="YES" id="o3e-GJ-hVi"/>
+                                                <constraint firstItem="ejL-dz-kno" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yrt-IK-phT" secondAttribute="leading" constant="20" symbolic="YES" id="yig-Ys-U6E"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="sessionName" destination="PiQ-9G-OLg" id="e2S-Kb-ids"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud_emoji" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yhn-3g-A08">
+                                <rect key="frame" x="108" y="60" width="159" height="160"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="balloon_emoji" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RX3-H8-vzh">
+                                <rect key="frame" x="100" y="147" width="175" height="112"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="112" id="rbu-ul-Nm3"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXB-7s-wnQ">
+                                <rect key="frame" x="101" y="301" width="173" height="65"/>
+                                <color key="backgroundColor" red="0.93563210959999998" green="0.19845819470000001" blue="0.32438111310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="KqZ-p7-aQe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="26"/>
+                                <color key="tintColor" red="0.93563210959999998" green="0.19845819470000001" blue="0.32438111310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="host a game">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="onJoinBtn:" destination="bcU-gU-Gkc" eventType="touchUpInside" id="2p8-lE-I1S"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXB-7s-wnQ">
-                                <rect key="frame" x="262" y="485" width="45" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" title="Host"/>
-                                <connections>
-                                    <action selector="onHostBtn:" destination="bcU-gU-Gkc" eventType="touchUpInside" id="7qZ-cQ-PmV"/>
+                                    <action selector="onHostBtn:" destination="bcU-gU-Gkc" eventType="touchUpInside" id="1qr-nc-KF6"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.33652773826188087" green="0.7798445609682394" blue="0.93853561188832491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="RX3-H8-vzh" firstAttribute="centerX" secondItem="QXB-7s-wnQ" secondAttribute="centerX" id="Env-YO-Z03"/>
+                            <constraint firstItem="8yD-Rm-2Ld" firstAttribute="leading" secondItem="lH2-Va-xx0" secondAttribute="leadingMargin" id="Nau-PT-ctr"/>
+                            <constraint firstItem="Yhn-3g-A08" firstAttribute="top" secondItem="zPW-va-a1y" secondAttribute="top" constant="40" id="Shg-k4-9Li"/>
+                            <constraint firstItem="8yD-Rm-2Ld" firstAttribute="top" secondItem="QXB-7s-wnQ" secondAttribute="bottom" constant="56" id="Wx4-45-nTK"/>
+                            <constraint firstItem="QXB-7s-wnQ" firstAttribute="leading" secondItem="zPW-va-a1y" secondAttribute="leading" constant="101" id="X0z-dk-ZIi"/>
+                            <constraint firstItem="RX3-H8-vzh" firstAttribute="leading" secondItem="zPW-va-a1y" secondAttribute="leading" constant="100" id="aoD-uM-ck3"/>
+                            <constraint firstAttribute="bottom" secondItem="8yD-Rm-2Ld" secondAttribute="bottom" constant="20" symbolic="YES" id="dkj-Wj-9Jh"/>
+                            <constraint firstItem="8yD-Rm-2Ld" firstAttribute="trailing" secondItem="lH2-Va-xx0" secondAttribute="trailingMargin" id="fER-79-iIb"/>
+                            <constraint firstItem="QXB-7s-wnQ" firstAttribute="centerX" secondItem="8yD-Rm-2Ld" secondAttribute="centerX" id="g5O-Go-dLV"/>
+                            <constraint firstItem="Yhn-3g-A08" firstAttribute="centerX" secondItem="QXB-7s-wnQ" secondAttribute="centerX" id="k9g-Wi-Dw2"/>
+                            <constraint firstItem="RX3-H8-vzh" firstAttribute="top" secondItem="zPW-va-a1y" secondAttribute="top" constant="127" id="lCD-Xr-dpP"/>
+                            <constraint firstItem="Yhn-3g-A08" firstAttribute="leading" secondItem="zPW-va-a1y" secondAttribute="leading" constant="108" id="nrO-nw-ruP"/>
+                            <constraint firstItem="QXB-7s-wnQ" firstAttribute="top" secondItem="RX3-H8-vzh" secondAttribute="bottom" constant="42" id="whP-Q6-6zJ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="zPW-va-a1y"/>
                     </view>
+                    <connections>
+                        <outlet property="hostBtn" destination="QXB-7s-wnQ" id="XXc-Qs-iz3"/>
+                        <outlet property="sessionTableView" destination="8yD-Rm-2Ld" id="xwW-Ye-a5A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xOU-jQ-myV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1531" y="-23"/>
+            <point key="canvasLocation" x="-1532" y="-23.838080959520241"/>
         </scene>
-        <!--View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="OxyAR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="OxyAR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U0K-SW-4ec">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -110,7 +184,11 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="141.59999999999999" y="133.5832083958021"/>
+            <point key="canvasLocation" x="-521" y="-24"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="balloon_emoji" width="220" height="230"/>
+        <image name="cloud_emoji" width="160" height="160"/>
+    </resources>
 </document>

@@ -11,7 +11,7 @@ import SceneKit
 import ARKit
 import AudioToolbox
 
-class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
+class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -20,7 +20,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     
     var canShoot: Bool = true
     var timer = Timer()
-    var seconds = 15
+    var seconds = 10
     var score = 0
     var hit = 0
     
@@ -60,7 +60,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         
         // Run the view's session
         sceneView.session.run(configuration)
-        runTimer()
+       // runTimer()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -69,7 +69,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // Pause the view's session
         sceneView.session.pause()
     }
-    
+
     @IBAction func onTap(_ sender: Any) {
         fireMissile()
     }
@@ -125,7 +125,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // "All scene content—nodes, geometries and their materials, lights, cameras, and related objects—is organized in a node hierarchy with a single common root node."
         if seconds > 0 {
             let position = getUserPosition()
-            let target = Target(userPosition: position)
+            let target : SCNNode = Target(userPosition: position).targetNode!
             print("adding new target")
             sceneView.scene.rootNode.addChildNode(target)
         }
@@ -151,10 +151,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             projectile = contact.nodeB
             hitTarget = contact.nodeA
         }
+       
         projectile.removeFromParentNode()
         self.canShoot = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6, execute: {
+        let explosion = SCNParticleSystem(named: "explosion", inDirectory: "art.scnassets")
+        // explosion.partcle
+        hitTarget.addParticleSystem(explosion!)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             hitTarget.removeFromParentNode()
             self.score += 1
             self.scoreLabel.text = "Score: " + String(self.score)
