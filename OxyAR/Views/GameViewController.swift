@@ -20,17 +20,25 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     
     var canShoot: Bool = true
     var timer = Timer()
-    var seconds = 10
+    var seconds = 15
     var score = 0
     var hit = 0
+    // projectile speed
+    let speedConstant: Float = -6.0
+    // remove projectile after they exceed this distance
+    let maxProjectileDistance: Float = 3.5
+    // remove balloons after they exceed this height
+    let maxBalloonHeight: Float = 1.75
+    let pointsStr = "Points: "
+    let lostBalloonsStr = "Lost balloons: "
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scoreLabel.text = "Score: 0"
-        hitLabel.text = "Hit: 0"
-        timerLabel.text = String(seconds) + "s"
+        scoreLabel.text = pointsStr + "0"
+        hitLabel.text = lostBalloonsStr + "0"
+        timerLabel.text = "00:" + String(seconds)
         // Set the view's delegate
         sceneView.delegate = self
         
@@ -60,7 +68,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         
         // Run the view's session
         sceneView.session.run(configuration)
-       // runTimer()
+        runTimer()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,6 +79,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     }
 
     @IBAction func onTap(_ sender: Any) {
+        //print("not firing")
         fireMissile()
     }
     
@@ -83,11 +92,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         return SCNVector3(0, 0, -0.2)
     }
     
-    func getUserOrientation() -> SCNVector3 {
+    func getProjectileDirectionFromUserOrientation() -> SCNVector3 {
         if let frame = self.sceneView.session.currentFrame {
             let mat = SCNMatrix4(frame.camera.transform)
-            let constant: Float = -2
-            let dir = SCNVector3(constant * mat.m31, constant * mat.m32, constant * mat.m33)
+            let dir = SCNVector3(speedConstant * mat.m31, speedConstant * mat.m32, speedConstant * mat.m33)
             return dir
         }
         return SCNVector3(0, 0, -1)
@@ -96,10 +104,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     func fireMissile() {
         if canShoot {
             let missile = Projectile()
-            
             missile.position = getUserPosition()
-            missile.physicsBody?.applyForce(getUserOrientation(), asImpulse: true)
-            
+            missile.physicsBody?.applyForce(getProjectileDirectionFromUserOrientation(), asImpulse: true)
             sceneView.scene.rootNode.addChildNode(missile)
             canShoot = false
         } else {
@@ -111,10 +117,15 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {_ in
             self.seconds -= 1
             print(self.seconds)
-            self.timerLabel.text = String(self.seconds) + "s"
+            if self.seconds < 10 {
+                self.timerLabel.text =  "00:0" + String(self.seconds)
+            } else {
+                self.timerLabel.text =  "00:" + String(self.seconds)
+            }
+         
             if self.seconds == 0 {
                 self.timer.invalidate()
-                self.timerLabel.text = "GAME OVER :("
+                self.timerLabel.text = "GAME OVER"
             }
         })
 
@@ -130,6 +141,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             sceneView.scene.rootNode.addChildNode(target)
         }
     }
+    
     
     func setupSessionConfiguration()  {
         let configuration = ARWorldTrackingConfiguration()
@@ -152,19 +164,25 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             hitTarget = contact.nodeA
         }
        
-        projectile.removeFromParentNode()
+        let explosion = SCNParticleSystem(named: "explode", inDirectory: "art.scnassets")
+        
+        projectile.addParticleSystem(explosion!)
+        hitTarget.removeFromParentNode()
+        
         self.canShoot = true
-        
-        let explosion = SCNParticleSystem(named: "explosion", inDirectory: "art.scnassets")
-        // explosion.partcle
-        hitTarget.addParticleSystem(explosion!)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-            hitTarget.removeFromParentNode()
+       
+        DispatchQueue.main.async {
             self.score += 1
-            self.scoreLabel.text = "Score: " + String(self.score)
+            self.scoreLabel.text = self.pointsStr + String(self.score)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
+            projectile.removeFromParentNode()
+            // change this to vary when it adds balloons
             self.addNewTarget()
+            
         })
+        
             
     }
     
@@ -195,7 +213,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
                         let nodePosition = node.presentation.position
                         
                         // https://stackoverflow.com/questions/52565937/arkit-after-apply-force-get-location-of-node
-                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) > 1.2) {
+                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) > maxProjectileDistance) {
                             return true
                         }
                     }
@@ -215,7 +233,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
                         let yourPosition = SCNVector3(matrix.m41, matrix.m42, matrix.m43)
                         let nodePosition = node.presentation.position
                         // https://stackoverflow.com/questions/52565937/arkit-after-apply-force-get-location-of-node
-                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) < 0.15) {
+                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) < 0.20) {
                             return true
                         }
                     }
@@ -224,20 +242,16 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             }
             return false
         })
-        
-        // redirect targets if they're moving away from the user
-        // this can happen when a user first dodges the target
-        
-        /*
-        let tooFarTargets = self.sceneView?.scene.rootNode.childNodes(passingTest: { (node, stop) -> Bool in
+        let farAwayTargets = self.sceneView?.scene.rootNode.childNodes(passingTest: { (node, stop) -> Bool in
             if (node.name != nil) {
                 if (node.name == "Target") {
                     if let frame = self.sceneView.session.currentFrame {
                         let matrix = SCNMatrix4(frame.camera.transform)
                         let yourPosition = SCNVector3(matrix.m41, matrix.m42, matrix.m43)
                         let nodePosition = node.presentation.position
-                        // https://stackoverflow.com/questions/52565937/arkit-after-apply-force-get-location-of-node
-                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) < 0.15) {
+                        let heightDifference = abs(yourPosition.y - nodePosition.y)
+                        // just based on height?
+                        if (heightDifference > maxBalloonHeight) {
                             return true
                         }
                     }
@@ -246,18 +260,31 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             }
             return false
         })
-         */
+        
         
         if let arr: [SCNNode] = tooCloseTargets {
             for target in arr {
                 self.hit += 1
                 DispatchQueue.main.async {
                     AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                    self.hitLabel.text = "Hit: " + String(self.hit)
+                   // self.hitLabel.text = self.lostBalloonsStr + String(self.hit)
+                    target.removeFromParentNode()
+                  //  self.addNewTarget()
                 }
-                target.removeFromParentNode()
                 print("TOO DANG CLOSE")
-                addNewTarget()
+            }
+        }
+        
+        if let arr: [SCNNode] = farAwayTargets {
+            for target in arr {
+                self.hit += 1
+                DispatchQueue.main.async {
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    self.hitLabel.text = self.lostBalloonsStr + String(self.hit)
+                    target.removeFromParentNode()
+                    self.addNewTarget()
+                }
+                print("TOO DANG FAR")
             }
         }
         

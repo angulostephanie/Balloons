@@ -15,26 +15,27 @@ class SplashViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var hostBtn: UIButton!
     
     var myself: Player?
-    var games: [NetworkGame]! = [NetworkGame(host: Player(peerID: MCPeerID(displayName: "emily"))),
-                                 NetworkGame(host: Player(peerID: MCPeerID(displayName: "brian"))),
-                                 NetworkGame(host: Player(peerID: MCPeerID(displayName: "vanessa")))]
+    var games: [NetworkGame]! = [NetworkGame(host: Player(peerID: MCPeerID(displayName: "fake person 1"))),
+                                 NetworkGame(host: Player(peerID: MCPeerID(displayName: "fake person 2"))),
+                                 NetworkGame(host: Player(peerID: MCPeerID(displayName: "fake person 3")))]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         myself = Player(username: UIDevice.current.name)
-        print(myself?.peerID)
-        print(myself?.username)
+//        print(myself?.peerID)
+//        print(myself?.username)
         sessionTableView.dataSource = self
         sessionTableView.delegate = self
         sessionTableView.reloadData()
         // Do any additional setup after loading the view.
-        hostBtn.layer.cornerRadius = 8
-        sessionTableView.layer.cornerRadius = 5
+        hostBtn.layer.cornerRadius = 10
+        sessionTableView.layer.cornerRadius = 7
     }
     
     @IBAction func onHostBtn(_ sender: Any) {
         print("host game!")
+        self.performSegue(withIdentifier: "gameSegue", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,9 +50,11 @@ class SplashViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return cell
     }
-    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         sessionTableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
+  
     /*
     // MARK: - Navigation
 

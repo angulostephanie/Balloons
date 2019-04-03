@@ -23,26 +23,34 @@ class Target: NSObject {
         let balloonScene = SCNScene(named: "art.scnassets/simple_balloon.scn")!
         let node: SCNNode = balloonScene.rootNode.childNode(withName: "balloon", recursively: true)!
         let shape = SCNPhysicsShape(node: node, options: [SCNPhysicsShape.Option.keepAsCompound: true])
-        let posVector = createRandomVector3()
-        let direction = getForceVector(position: posVector, userPosition: userPos)
-        node.geometry?.firstMaterial?.shininess = 0.9
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
         
+        let posVector = createRandomPostition()
+        let direction = createRandomDirection()
+        node.geometry?.firstMaterial?.shininess = 0.5
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+      
         node.position = posVector
         node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
         node.physicsBody?.damping = 0.0
         node.physicsBody?.isAffectedByGravity = false
         node.physicsBody?.categoryBitMask = Constants.CollisionCategory.projectile.rawValue
         node.physicsBody?.contactTestBitMask = Constants.CollisionCategory.target.rawValue
+        /*
+         let negativeHorizontal = Int(arc4random_uniform(2)) == 0 ? -1 : 1
+         let xCord = 10 + Float(arc4random_uniform(50))
+         let yCord = 20 + Float(arc4random_uniform(100))
+         balloonNode.physicsBody?.applyForce(SCNVector3(Float(negativeHorizontal)*xCord,yCord,0), asImpulse: false)
+         */
         node.physicsBody?.applyForce(direction, asImpulse: true)
         
         node.name = "Target"
-        addMovement(node: node)
+       // addMovement(node: node)
        
         print(node)
         return node
     }
     
+    /*
     private func getForceVector(position: SCNVector3, userPosition: SCNVector3) -> SCNVector3 {
         let magnitude: Float = (pow((userPosition.x - position.x), 2) + pow((userPosition.y - position.y), 2) + pow((userPosition.z - position.z), 2)).squareRoot()
        
@@ -51,13 +59,19 @@ class Target: NSObject {
         let vector = SCNVector3(speed * unit.x, speed * unit.y, speed * unit.z)
         return vector
     }
-
+*/
     // node.position = SCNVector3(-0.2, 0.1, -0.7)
-    private func createRandomVector3 () -> SCNVector3 {
-//        let randomDouble = Double.random(in: -0.4...0.2)
-//        let randomDouble2 = Double.random(in: -0....0.5)
-        //let randomDouble3 = Double.random(in: -2...-1)
-        return SCNVector3(-0.3, -0.3, -1.5) // (x, y, )
+    private func createRandomPostition () -> SCNVector3 {
+        let randomDouble = Double.random(in: -0.4...0.5)
+        let randomDouble2 = Double.random(in: -0.3...0.0)
+        let randomDouble3 = Double.random(in: -2 ... -1)//Double.random(in: -2.0... -1.0)
+        return SCNVector3(randomDouble, randomDouble2, randomDouble3) // (x, y, )
+    }
+    
+    private func createRandomDirection () -> SCNVector3 {
+        // .1 to .35
+        let randomDouble = Double.random(in: 0.1...0.35)
+        return SCNVector3(0, randomDouble, 0)
     }
     
     private func addRotation(node: SCNNode) {
