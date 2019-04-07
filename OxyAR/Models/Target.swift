@@ -70,7 +70,7 @@ class Target: NSObject {
     
     private func createRandomDirection () -> SCNVector3 {
         // .1 to .35
-        let randomDouble = Double.random(in: 0.1...0.35)
+        let randomDouble = Double.random(in: 0.2...0.35)
         return SCNVector3(0, randomDouble, 0)
     }
     

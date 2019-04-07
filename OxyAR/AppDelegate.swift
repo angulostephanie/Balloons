@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        /*
+         Configures a default Firebase app. Raises an exception if any configuration step fails. The default app is named "__FIRAPP_DEFAULT". This method should be called after the app is launched and before using Firebase services. This method is thread safe.
+         */
+        FirebaseApp.configure()
         return true
     }
 

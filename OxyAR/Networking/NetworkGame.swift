@@ -12,10 +12,11 @@ struct NetworkGame {
     var name: String
     var host: Player
     
-    init(host: Player, name: String? = nil) {
-        self.host = host
-        self.name = name ?? "\(host.username)'s game"
-    }
+//
+//    init(host: Player, name: String? = nil) {
+//        self.host = host
+//        self.name = name ?? "\(host.username)'s game"
+//    }
     
     
 }

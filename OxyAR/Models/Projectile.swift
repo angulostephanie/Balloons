@@ -13,7 +13,7 @@ import SceneKit
 class Projectile: SCNNode {
     override init () {
         super.init()
-        let geometry = SCNSphere(radius: 0.02)
+        let geometry = SCNSphere(radius: 0.03)
         let shape = SCNPhysicsShape(geometry: geometry, options: nil)
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.lightGray

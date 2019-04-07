@@ -1,0 +1,6 @@
+framework module Pods_OxyARTests {
+  umbrella header "Pods-OxyARTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
