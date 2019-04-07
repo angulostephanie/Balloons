@@ -33,8 +33,8 @@ class Target: NSObject {
         node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
         node.physicsBody?.damping = 0.0
         node.physicsBody?.isAffectedByGravity = false
-        node.physicsBody?.categoryBitMask = Constants.CollisionCategory.projectile.rawValue
-        node.physicsBody?.contactTestBitMask = Constants.CollisionCategory.target.rawValue
+        node.physicsBody?.categoryBitMask = CollisionCategory.projectile.rawValue
+        node.physicsBody?.contactTestBitMask = CollisionCategory.target.rawValue
         /*
          let negativeHorizontal = Int(arc4random_uniform(2)) == 0 ? -1 : 1
          let xCord = 10 + Float(arc4random_uniform(50))

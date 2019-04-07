@@ -10,13 +10,17 @@ import UIKit
 
 class HowToPlayViewController: UIViewController {
 
+    @IBOutlet weak var mainMenuBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        mainMenuBtn.layer.cornerRadius = 12
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func onMainMenuBtn(_ sender: Any) {
+        self.performSegue(withIdentifier: "backToMainMenu2Segue", sender: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

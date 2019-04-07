@@ -10,14 +10,13 @@
 		137A30BEC8717DA50B3860B7 /* Pods_OxyARTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A86A8E26F00D5B9F5E7A38B /* Pods_OxyARTests.framework */; };
 		19B8E8E6A2BCAE5B08B23308 /* Pods_OxyAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B74A4735A319B29305FE400 /* Pods_OxyAR.framework */; };
 		44398D4734C8DAC35876FA64 /* Pods_OxyARUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21ECC7053CA899A9E022C892 /* Pods_OxyARUITests.framework */; };
-		730252932255BD2C00E0A886 /* confetti.png in Resources */ = {isa = PBXBuildFile; fileRef = 730252912255BD2C00E0A886 /* confetti.png */; };
-		730252942255BD2C00E0A886 /* confetti.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 730252922255BD2C00E0A886 /* confetti.scnp */; };
 		7309D485222F20F900978836 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309D484222F20F900978836 /* Target.swift */; };
 		7309D487222F21B200978836 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309D486222F21B200978836 /* Projectile.swift */; };
 		730CD4162252C47A00223CF3 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730CD4152252C47A00223CF3 /* NetworkSession.swift */; };
 		732F92082252D6E40082036B /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732F92072252D6E40082036B /* GameCell.swift */; };
 		732F920C2252D9250082036B /* NetworkGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732F920B2252D9250082036B /* NetworkGame.swift */; };
 		73441F5D225984CA008D4AF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73441F5C225984CA008D4AF3 /* GoogleService-Info.plist */; };
+		73441F5F225987D4008D4AF3 /* CollisionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F5E225987D4008D4AF3 /* CollisionCategory.swift */; };
 		736D376A22597249008E0FC3 /* HighScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D376922597249008E0FC3 /* HighScoreViewController.swift */; };
 		736D376C22597258008E0FC3 /* HowToPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D376B22597258008E0FC3 /* HowToPlayViewController.swift */; };
 		736D376E22597285008E0FC3 /* HighScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D376D22597285008E0FC3 /* HighScoreCell.swift */; };
@@ -57,14 +56,13 @@
 		2A86A8E26F00D5B9F5E7A38B /* Pods_OxyARTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OxyARTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B74A4735A319B29305FE400 /* Pods_OxyAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OxyAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48C0E0E4AE2B6037219ECF4F /* Pods-OxyAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OxyAR.release.xcconfig"; path = "Target Support Files/Pods-OxyAR/Pods-OxyAR.release.xcconfig"; sourceTree = "<group>"; };
-		730252912255BD2C00E0A886 /* confetti.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = confetti.png; sourceTree = "<group>"; };
-		730252922255BD2C00E0A886 /* confetti.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = confetti.scnp; sourceTree = "<group>"; };
 		7309D484222F20F900978836 /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		7309D486222F21B200978836 /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		730CD4152252C47A00223CF3 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		732F92072252D6E40082036B /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		732F920B2252D9250082036B /* NetworkGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkGame.swift; sourceTree = "<group>"; };
 		73441F5C225984CA008D4AF3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		73441F5E225987D4008D4AF3 /* CollisionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionCategory.swift; sourceTree = "<group>"; };
 		736D376922597249008E0FC3 /* HighScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreViewController.swift; sourceTree = "<group>"; };
 		736D376B22597258008E0FC3 /* HowToPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayViewController.swift; sourceTree = "<group>"; };
 		736D376D22597285008E0FC3 /* HighScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreCell.swift; sourceTree = "<group>"; };
@@ -128,6 +126,15 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		73441F6022598802008D4AF3 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				73441F5E225987D4008D4AF3 /* CollisionCategory.swift */,
+				73AF84DC2240B71500C59B4A /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		7378E1D122097C5800FDEC91 = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +160,7 @@
 		7378E1DC22097C5800FDEC91 /* OxyAR */ = {
 			isa = PBXGroup;
 			children = (
+				73441F6022598802008D4AF3 /* Constants */,
 				73441F5C225984CA008D4AF3 /* GoogleService-Info.plist */,
 				732F92172253096C0082036B /* Networking */,
 				7392D6662212C66F00A076C1 /* ViewControllers */,
@@ -163,9 +171,6 @@
 				7378E1E622097C5A00FDEC91 /* Assets.xcassets */,
 				7378E1E822097C5A00FDEC91 /* LaunchScreen.storyboard */,
 				7378E1EB22097C5A00FDEC91 /* Info.plist */,
-				73AF84DC2240B71500C59B4A /* Constants.swift */,
-				730252912255BD2C00E0A886 /* confetti.png */,
-				730252922255BD2C00E0A886 /* confetti.scnp */,
 			);
 			path = OxyAR;
 			sourceTree = "<group>";
@@ -343,10 +348,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7378E1E022097C5800FDEC91 /* art.scnassets in Resources */,
-				730252942255BD2C00E0A886 /* confetti.scnp in Resources */,
 				7378E1EA22097C5A00FDEC91 /* LaunchScreen.storyboard in Resources */,
 				7378E1E722097C5A00FDEC91 /* Assets.xcassets in Resources */,
-				730252932255BD2C00E0A886 /* confetti.png in Resources */,
 				7378E1E522097C5800FDEC91 /* Main.storyboard in Resources */,
 				73441F5D225984CA008D4AF3 /* GoogleService-Info.plist in Resources */,
 			);
@@ -470,6 +473,7 @@
 			files = (
 				736D376E22597285008E0FC3 /* HighScoreCell.swift in Sources */,
 				7309D485222F20F900978836 /* Target.swift in Sources */,
+				73441F5F225987D4008D4AF3 /* CollisionCategory.swift in Sources */,
 				7378E1E222097C5800FDEC91 /* GameViewController.swift in Sources */,
 				7378E1DE22097C5800FDEC91 /* AppDelegate.swift in Sources */,
 				730CD4162252C47A00223CF3 /* NetworkSession.swift in Sources */,

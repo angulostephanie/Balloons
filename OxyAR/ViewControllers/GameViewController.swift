@@ -16,58 +16,42 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
-    @IBOutlet weak var hitLabel: UILabel!
+    @IBOutlet weak var livesLabel: UILabel!
     
     var canShoot: Bool = true
-    var timer = Timer()
-    var seconds = 15
-    var score = 0
-    var hit = 0
-    // projectile speed
-    let speedConstant: Float = -7.0
-    // remove projectile after they exceed this distance
-    let maxProjectileDistance: Float = 3.5
-    // remove balloons after they exceed this height
-    let maxBalloonHeight: Float = 1.65
-    let pointsStr = "Points: "
-    let lostBalloonsStr = "Lost balloons: "
+    var lives: Int = 3
+    var timer: Timer = Timer()
+    var seconds: Int = 0
+    var score: Int = 0
+    
+    var hit: Int = 0
+    let pointsStr: String = "Points: "
+    let livesRemaining: String = "Lives: "
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scoreLabel.text = pointsStr + "0"
-        hitLabel.text = lostBalloonsStr + "0"
-        timerLabel.text = "00:" + String(seconds)
+        scoreLabel.text = pointsStr + String(score)
+        livesLabel.text = livesRemaining + String(lives)
+        timerLabel.text = "00:0" + String(seconds)
+        
         // Set the view's delegate
         sceneView.delegate = self
-        
-        
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        // sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         sceneView.autoenablesDefaultLighting = true
         sceneView.automaticallyUpdatesLighting = true
-
-        // Set the scene to the view
-        
+    
         sceneView.scene = SCNScene()
         sceneView.scene.physicsWorld.contactDelegate = self
+
         
-        addNewTarget()
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
-        configuration.environmentTexturing = .automatic
-        
-        // Run the view's session
-        sceneView.session.run(configuration)
+        setupSessionConfiguration()
+
         runTimer()
     }
     
@@ -78,9 +62,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         sceneView.session.pause()
     }
 
+    func startGame() {
+        addNewTarget()
+    }
+    
     @IBAction func onTap(_ sender: Any) {
-        //print("not firing")
-        fireMissile()
+        fireBall()
     }
     
     func getUserPosition() -> SCNVector3 {
@@ -95,50 +82,55 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     func getProjectileDirectionFromUserOrientation() -> SCNVector3 {
         if let frame = self.sceneView.session.currentFrame {
             let mat = SCNMatrix4(frame.camera.transform)
-            let dir = SCNVector3(speedConstant * mat.m31, speedConstant * mat.m32, speedConstant * mat.m33)
+            let dir = SCNVector3(Constants.speedConstant * mat.m31, Constants.speedConstant * mat.m32,
+                                 Constants.speedConstant * mat.m33)
             return dir
         }
         return SCNVector3(0, 0, -1)
     }
     
-    func fireMissile() {
+    func fireBall() {
         if canShoot {
-            let missile = Projectile()
-            missile.position = getUserPosition()
-            missile.physicsBody?.applyForce(getProjectileDirectionFromUserOrientation(), asImpulse: true)
-            sceneView.scene.rootNode.addChildNode(missile)
+            let ball = Projectile()
+            ball.position = getUserPosition()
+            ball.physicsBody?.applyForce(getProjectileDirectionFromUserOrientation(), asImpulse: true)
+            sceneView.scene.rootNode.addChildNode(ball)
             canShoot = false
-        } else {
-            print("can't shoot yet")
         }
     }
     
     func runTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {_ in
-            self.seconds -= 1
-            print(self.seconds)
-            if self.seconds < 10 {
-                self.timerLabel.text =  "00:0" + String(self.seconds)
-            } else {
-                self.timerLabel.text =  "00:" + String(self.seconds)
-            }
-         
-            if self.seconds == 0 {
-                self.timer.invalidate()
-                self.timerLabel.text = "GAME OVER"
-            }
-        })
-
+        DispatchQueue.main.async {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {_ in
+                self.seconds += 1
+                print(self.seconds)
+                
+                let minutes = self.seconds / 60
+                let secondsMod = self.seconds % 60
+                
+                let minutesString = minutes < 10 ? "0" + String(minutes) : String(minutes)
+                let secondsString = secondsMod < 10 ? ":0" + String(secondsMod) : ":" + String(secondsMod)
+                
+                self.timerLabel.text = minutesString + secondsString
+                
+                if self.lives == 0 {
+                    self.timer.invalidate()
+                    self.timerLabel.text = "GAME OVER"
+                }
+            })
+        }
     }
     
     func addNewTarget() {
         // https://developer.apple.com/documentation/scenekit/scnscene/1524029-rootnode
-        // "All scene content—nodes, geometries and their materials, lights, cameras, and related objects—is organized in a node hierarchy with a single common root node."
-        if seconds > 0 {
+        // "All scene content—nodes, geometries and their materials, lights, cameras, and related objects—is
+        // organized in a node hierarchy with a single common root node."
+        
+        if lives < 0 {
             let position = getUserPosition()
             let target : SCNNode = Target(userPosition: position).targetNode!
-            print("adding new target")
             sceneView.scene.rootNode.addChildNode(target)
+            canShoot = false
         }
     }
     
@@ -159,28 +151,29 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         var projectile: SCNNode = contact.nodeA
         var hitTarget: SCNNode = contact.nodeB
         
-        if contact.nodeB.physicsBody?.categoryBitMask == Constants.CollisionCategory.target.rawValue {
+        if contact.nodeB.physicsBody?.categoryBitMask == CollisionCategory.target.rawValue {
             projectile = contact.nodeB
             hitTarget = contact.nodeA
         }
        
-        let explosion = SCNParticleSystem(named: "explode2", inDirectory: "art.scnassets")
+        let explosion = SCNParticleSystem(named: "explode3", inDirectory: "art.scnassets")
         
       
-        hitTarget.addParticleSystem(explosion!)
+        projectile.addParticleSystem(explosion!)
         
-        self.canShoot = true
-       
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
-           
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
+            projectile.removeFromParentNode()
+            self.canShoot = true
+        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             self.addNewTarget()
-            
         })
         
         DispatchQueue.main.async {
             hitTarget.removeFromParentNode()
-            projectile.removeFromParentNode()
+            self.canShoot = true
             self.score += 1
             self.scoreLabel.text = self.pointsStr + String(self.score)
         }
@@ -215,7 +208,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
                         let nodePosition = node.presentation.position
                         
                         // https://stackoverflow.com/questions/52565937/arkit-after-apply-force-get-location-of-node
-                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) > maxProjectileDistance) {
+                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) > Constants.maxProjectileDistance) {
                             return true
                         }
                     }
@@ -253,7 +246,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
                         let nodePosition = node.presentation.position
                         let heightDifference = abs(yourPosition.y - nodePosition.y)
                         // just based on height?
-                        if (heightDifference > maxBalloonHeight) {
+                        if (heightDifference > Constants.maxBalloonHeight) {
                             return true
                         }
                     }
@@ -268,10 +261,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             for target in arr {
                 self.hit += 1
                 DispatchQueue.main.async {
-                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                   // self.hitLabel.text = self.lostBalloonsStr + String(self.hit)
                     target.removeFromParentNode()
-                  //  self.addNewTarget()
                 }
                 print("TOO DANG CLOSE")
             }
@@ -279,10 +269,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         
         if let arr: [SCNNode] = farAwayTargets {
             for target in arr {
-                self.hit += 1
+                self.lives -= 1
                 DispatchQueue.main.async {
                     AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                    self.hitLabel.text = self.lostBalloonsStr + String(self.hit)
+                    self.livesLabel.text = self.livesRemaining + String(self.lives)
                     target.removeFromParentNode()
                     self.addNewTarget()
                 }

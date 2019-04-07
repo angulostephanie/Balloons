@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class HighScoreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
     @IBOutlet weak var highScoreTable: UITableView!
     
-    var highScores: [Player]! = [Player(username:"Steph", score: 100), Player(username:"brian", score: 200)]
+    @IBOutlet weak var mainMenuBtn: UIButton!
+    
+    var players: [Player]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,49 +24,51 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         // Do any additional setup after loading the view.
         highScoreTable.delegate = self
         highScoreTable.dataSource = self
+        highScoreTable.allowsSelection = false
         highScoreTable.layer.cornerRadius = 8
+        mainMenuBtn.layer.cornerRadius = 12
+        fetchHighScores()
+    }
+    
+    func fetchHighScores() {
+        DispatchQueue.global().async {
+            var topPlayers: [Player]! = []
+            var count = 0
+            let ref: DatabaseReference! = Database.database().reference()
+            ref.child("scores").queryOrdered(byChild: "highscore").observe(.value, with: { (snapshot) in
+                for snap in snapshot.children {
+                    if count == 15 { break }
+                    let object = snap as! DataSnapshot
+                    let dictionary = object.value as! [String: AnyObject]
+                    let username = dictionary["username"] as! String
+                    let highscore = dictionary["highscore"] as! Int
+                    print(username)
+                    print(highscore)
+                    topPlayers.insert(Player(username: username, score: highscore), at: 0)
+                    count = count + 1
+                }
+                self.players = topPlayers
+                self.highScoreTable.reloadData()
+            })
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return highScores.count
+        return players.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = highScoreTable.dequeueReusableCell(withIdentifier: "highScoreCell") as! HighScoreCell
-        let player = highScores![indexPath.row]
+        let player = players![indexPath.row]
         cell.usernameLabel.text = player.username
         cell.highscoreLabel.text = String(player.score)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        highScoreTable.deselectRow(at: indexPath as IndexPath, animated: true)
+    
+    @IBAction func onMainMenuBtn(_ sender: Any) {
+        self.performSegue(withIdentifier: "backToMainMenuSegue", sender: nil)
     }
     
-    /*
-     
-     let userID = Auth.auth().currentUser?.uid
-     ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-     // Get user value
-     let value = snapshot.value as? NSDictionary
-     let username = value?["username"] as? String ?? ""
-     let user = User(username: username)
-     
-     // ...
-     }) { (error) in
-     print(error.localizedDescription)
-     }
-     
-     */
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
