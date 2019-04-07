@@ -24,19 +24,18 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     var seconds: Int = 0
     var score: Int = 0
     
-    var hit: Int = 0
-    let pointsStr: String = "Points: "
-    let livesRemaining: String = "Lives: "
+    var balloonsLowerBound: Int = 1
+    var balloonsUpperBound: Int = 2
     
+    var hit: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scoreLabel.text = pointsStr + String(score)
-        livesLabel.text = livesRemaining + String(lives)
-        timerLabel.text = "00:0" + String(seconds)
+        scoreLabel.text = String(score)
+        livesLabel.text = String(lives)
+        timerLabel.text = ""
         
-        // Set the view's delegate
         sceneView.delegate = self
         sceneView.autoenablesDefaultLighting = true
         sceneView.automaticallyUpdatesLighting = true
@@ -53,12 +52,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         setupSessionConfiguration()
 
         runTimer()
+        startGame()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        // Pause the view's session
         sceneView.session.pause()
     }
 
@@ -103,19 +101,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {_ in
                 self.seconds += 1
-                print(self.seconds)
-                
-                let minutes = self.seconds / 60
-                let secondsMod = self.seconds % 60
-                
-                let minutesString = minutes < 10 ? "0" + String(minutes) : String(minutes)
-                let secondsString = secondsMod < 10 ? ":0" + String(secondsMod) : ":" + String(secondsMod)
-                
-                self.timerLabel.text = minutesString + secondsString
-                
+               // print(self.seconds)
                 if self.lives == 0 {
                     self.timer.invalidate()
                     self.timerLabel.text = "GAME OVER"
+                    // self.performSegue(withIdentifier: "gameOverSegue", sender: <#T##Any?#>)
                 }
             })
         }
@@ -126,23 +116,33 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         // "All scene content—nodes, geometries and their materials, lights, cameras, and related objects—is
         // organized in a node hierarchy with a single common root node."
         
-        if lives < 0 {
-            let position = getUserPosition()
-            let target : SCNNode = Target(userPosition: position).targetNode!
-            sceneView.scene.rootNode.addChildNode(target)
-            canShoot = false
+        if lives > 0 {
+            canShoot = true
+            let balloons = determineNumberOfNewBalloons()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                for _ in 1...balloons {
+                    let speed = 1.0 + (Double(self.score % 5) * 0.1)
+                    let target : SCNNode = Target(speed: speed).targetNode!
+                    self.sceneView.scene.rootNode.addChildNode(target)
+                }
+            })
+        } else {
+            self.canShoot = false
         }
     }
     
+    func determineNumberOfNewBalloons() -> Int {
+        let x = score % 10
+        return Int.random(in: balloonsLowerBound ... balloonsUpperBound + x)
+    }
     
     func setupSessionConfiguration()  {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .automatic
-        
-        // Run the view's session
         sceneView.session.run(configuration)
     }
+    
     
     // MARK: - Contact Delegate
     
@@ -161,21 +161,24 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
       
         projectile.addParticleSystem(explosion!)
         
-        
+        let numberOfNodes = self.sceneView.scene.rootNode.childNodes.count
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
             projectile.removeFromParentNode()
             self.canShoot = true
-        })
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            self.addNewTarget()
+            if numberOfNodes < 3 {
+                print("number of nodes currently???")
+                print(numberOfNodes)
+                self.addNewTarget()
+            } else {
+                print("number of nodes currently")
+                print(numberOfNodes)
+            }
         })
         
         DispatchQueue.main.async {
             hitTarget.removeFromParentNode()
-            self.canShoot = true
             self.score += 1
-            self.scoreLabel.text = self.pointsStr + String(self.score)
+            self.scoreLabel.text = String(self.score)
         }
         
             
@@ -196,30 +199,37 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        // remove projectiles that are too far
-        // maybe do this based off time instead idk
-        let farAwayProjectiles = self.sceneView?.scene.rootNode.childNodes(passingTest: { (node, stop) -> Bool in
-            if (node.name != nil) {
-                if (node.name == "Projectile") {
-                     if let frame = self.sceneView.session.currentFrame {
-                        // frame.camera.transform
-                        let matrix = SCNMatrix4(frame.camera.transform)
-                        let yourPosition = SCNVector3(matrix.m41, matrix.m42, matrix.m43)
-                        let nodePosition = node.presentation.position
-                        
-                        // https://stackoverflow.com/questions/52565937/arkit-after-apply-force-get-location-of-node
-                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) > Constants.maxProjectileDistance) {
-                            return true
-                        }
-                    }
-                   
+        if let arr: [SCNNode] = getCloseTargets() {
+            for target in arr {
+                self.hit += 1
+                DispatchQueue.main.async {
+                    target.removeFromParentNode()
                 }
             }
-            return false
-        })
+        }
         
-        // if a target is too close, it "hits" the user
-        // -1 on their overall score
+        if let arr: [SCNNode] = getFarTargets() {
+            for target in arr {
+                self.lives -= 1
+                DispatchQueue.main.async {
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    self.livesLabel.text = String(self.lives)
+                    target.removeFromParentNode()
+                    self.addNewTarget()
+                }
+            }
+        }
+        
+        if let arr: [SCNNode] = getFarProjectiles() {
+            for projectile in arr {
+                projectile.removeFromParentNode()
+                canShoot = true
+            }
+        }
+    }
+    
+    func getCloseTargets() -> [SCNNode]? {
+        
         let tooCloseTargets = self.sceneView?.scene.rootNode.childNodes(passingTest: { (node, stop) -> Bool in
             if (node.name != nil) {
                 if (node.name == "Target") {
@@ -237,6 +247,11 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             }
             return false
         })
+        
+        return tooCloseTargets
+    }
+    
+    func getFarTargets() -> [SCNNode]? {
         let farAwayTargets = self.sceneView?.scene.rootNode.childNodes(passingTest: { (node, stop) -> Bool in
             if (node.name != nil) {
                 if (node.name == "Target") {
@@ -256,37 +271,31 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             return false
         })
         
-        
-        if let arr: [SCNNode] = tooCloseTargets {
-            for target in arr {
-                self.hit += 1
-                DispatchQueue.main.async {
-                    target.removeFromParentNode()
+        return farAwayTargets
+    }
+    
+    func getFarProjectiles() -> [SCNNode]? {
+        let farAwayProjectiles = self.sceneView?.scene.rootNode.childNodes(passingTest: { (node, stop) -> Bool in
+            if (node.name != nil) {
+                if (node.name == "Projectile") {
+                    if let frame = self.sceneView.session.currentFrame {
+                        // frame.camera.transform
+                        let matrix = SCNMatrix4(frame.camera.transform)
+                        let yourPosition = SCNVector3(matrix.m41, matrix.m42, matrix.m43)
+                        let nodePosition = node.presentation.position
+                        
+                        // https://stackoverflow.com/questions/52565937/arkit-after-apply-force-get-location-of-node
+                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) > Constants.maxProjectileDistance) {
+                            return true
+                        }
+                    }
+                    
                 }
-                print("TOO DANG CLOSE")
             }
-        }
+            return false
+        })
         
-        if let arr: [SCNNode] = farAwayTargets {
-            for target in arr {
-                self.lives -= 1
-                DispatchQueue.main.async {
-                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                    self.livesLabel.text = self.livesRemaining + String(self.lives)
-                    target.removeFromParentNode()
-                    self.addNewTarget()
-                }
-                print("TOO DANG FAR")
-            }
-        }
-        
-        if let arr: [SCNNode] = farAwayProjectiles {
-            for projectile in arr {
-                projectile.removeFromParentNode()
-                print("REMOVING PROJECTILE")
-                canShoot = true
-            }
-        }
+        return farAwayProjectiles
     }
     
     // https://developer.apple.com/documentation/arkit/managing_session_lifecycle_and_tracking_quality
@@ -307,10 +316,5 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
        
         
     }
-    /*
-    func sessionShouldAttemptRelocalization(_ session: ARSession) -> Bool {
-        //ARCamera.TrackingState.Reason.relocalizing
-        return true
-    }
- */
+    
 }

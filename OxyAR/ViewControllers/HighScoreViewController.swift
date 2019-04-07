@@ -42,8 +42,6 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
                     let dictionary = object.value as! [String: AnyObject]
                     let username = dictionary["username"] as! String
                     let highscore = dictionary["highscore"] as! Int
-                    print(username)
-                    print(highscore)
                     topPlayers.insert(Player(username: username, score: highscore), at: 0)
                     count = count + 1
                 }
