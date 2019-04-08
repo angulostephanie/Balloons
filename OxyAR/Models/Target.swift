@@ -49,9 +49,9 @@ class Target: NSObject {
     }
     
     private func createRandomPostition () -> SCNVector3 {
-        let randomDouble = Double.random(in: -1.3...1.3)
-        let randomDouble2 = Double.random(in: -0.8...0.0)
-        let randomDouble3 = Double.random(in: -1.9 ... -0.9)
+        let randomDouble = Double.random(in: -1.5...1.5)
+        let randomDouble2 = Double.random(in: -0.8 ... -0.2)
+        let randomDouble3 = Double.random(in: -1.9 ... -1.3)
         return SCNVector3(randomDouble, randomDouble2, randomDouble3)
     }
     
@@ -65,8 +65,8 @@ class Target: NSObject {
     
     
     private func addMovement(node: SCNNode) {
-        let moveLeft = SCNAction.move(by: SCNVector3(0.05, 0, 0.05), duration: 3)
-        let moveRight = SCNAction.move(by: SCNVector3(-0.05, -0.03, -0.05), duration: 3)
+        let moveLeft = SCNAction.move(by: SCNVector3(0.05, 0, 0.05), duration: 2)
+        let moveRight = SCNAction.move(by: SCNVector3(-0.05, -0.04, -0.05), duration: 2)
         let hoverSequence = SCNAction.sequence([moveLeft, moveRight])
         let loopSequence = SCNAction.repeatForever(hoverSequence)
         node.runAction(loopSequence)

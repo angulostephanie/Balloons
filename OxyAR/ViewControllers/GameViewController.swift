@@ -120,9 +120,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
                 self.timer.invalidate()
                 self.timerLabel.text = "game over!"
                 self.canShoot = false
-                print("hello")
-                self.performSegue(withIdentifier: "gameOverSegue", sender: String(self.score))
-                print("hi?")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                      self.performSegue(withIdentifier: "gameOverSegue", sender: String(self.score))
+                })
             }
         })
     }

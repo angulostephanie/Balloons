@@ -16,7 +16,6 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
         
         startGameBtn.layer.cornerRadius = 12
-        // addDummyData()
     }
     
     
