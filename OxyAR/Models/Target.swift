@@ -14,7 +14,7 @@ import ARKit
 
 class Target: NSObject {
     var targetNode: SCNNode?
-    let colors: [UIColor]! = [UIColor.red, UIColor.blue, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.magenta, UIColor.lightGray]
+    let colors: [UIColor]! = [UIColor.red, UIColor.blue, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.magenta, UIColor.lightGray, UIColor.cyan, UIColor.orange]
     
     init(speed: Double) {
         super.init()

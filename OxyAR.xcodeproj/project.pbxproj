@@ -12,7 +12,6 @@
 		44398D4734C8DAC35876FA64 /* Pods_OxyARUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21ECC7053CA899A9E022C892 /* Pods_OxyARUITests.framework */; };
 		7309D485222F20F900978836 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309D484222F20F900978836 /* Target.swift */; };
 		7309D487222F21B200978836 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309D486222F21B200978836 /* Projectile.swift */; };
-		732F92082252D6E40082036B /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732F92072252D6E40082036B /* GameCell.swift */; };
 		733C1409225ADF8300EEEF91 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 733C1408225ADF8300EEEF91 /* pop.wav */; };
 		733C140B225AE22400EEEF91 /* balloon_pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 733C140A225AE22400EEEF91 /* balloon_pop.mp3 */; };
 		73441F5F225987D4008D4AF3 /* CollisionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F5E225987D4008D4AF3 /* CollisionCategory.swift */; };
@@ -59,7 +58,6 @@
 		48C0E0E4AE2B6037219ECF4F /* Pods-OxyAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OxyAR.release.xcconfig"; path = "Target Support Files/Pods-OxyAR/Pods-OxyAR.release.xcconfig"; sourceTree = "<group>"; };
 		7309D484222F20F900978836 /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		7309D486222F21B200978836 /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
-		732F92072252D6E40082036B /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		733C1408225ADF8300EEEF91 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
 		733C140A225AE22400EEEF91 /* balloon_pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = balloon_pop.mp3; sourceTree = "<group>"; };
 		73441F5E225987D4008D4AF3 /* CollisionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionCategory.swift; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 			children = (
 				7309D484222F20F900978836 /* Target.swift */,
 				7309D486222F21B200978836 /* Projectile.swift */,
-				732F92072252D6E40082036B /* GameCell.swift */,
 				736D376D22597285008E0FC3 /* HighScoreCell.swift */,
 				736D376F225980A3008E0FC3 /* Player.swift */,
 			);
@@ -474,7 +471,6 @@
 				7378E1E222097C5800FDEC91 /* GameViewController.swift in Sources */,
 				7378E1DE22097C5800FDEC91 /* AppDelegate.swift in Sources */,
 				7309D487222F21B200978836 /* Projectile.swift in Sources */,
-				732F92082252D6E40082036B /* GameCell.swift in Sources */,
 				7373371C2213818B0036F7EE /* SplashViewController.swift in Sources */,
 				73AF84DD2240B71500C59B4A /* Constants.swift in Sources */,
 				736D376A22597249008E0FC3 /* HighScoreViewController.swift in Sources */,

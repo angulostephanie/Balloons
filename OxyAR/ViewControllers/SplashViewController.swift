@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
 
 class SplashViewController: UIViewController {
     @IBOutlet weak var startGameBtn: UIButton! // start button
@@ -31,21 +30,5 @@ class SplashViewController: UIViewController {
     
     @IBAction func onHowToPlayBtn(_ sender: Any) {
         self.performSegue(withIdentifier: "howToPlaySegue", sender: nil)
-    }
-    
-
-    func addDummyData() {
-        DispatchQueue.global().async {
-            let ref: DatabaseReference! = Database.database().reference()
-            ref.child("scores").childByAutoId().setValue(["username": "vanessa", "highscore": 1], withCompletionBlock: { (error: Error?, ref: DatabaseReference) in
-                if let error = error {
-                    print("data was not successfully added.")
-                    print(error)
-                } else {
-                    print("woooo")
-                }
-            })
-            
-        }
     }
 }

@@ -83,8 +83,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         if lives > 0 {
             canShoot = true
             let balloons = determineNumberOfNewBalloons()
-            print("ADDING THIS MANY BALLOONS")
-            print(balloons)
             for _ in 1...balloons {
                 DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: {
                     // https://stackoverflow.com/questions/41180748/how-to-add-scnnodes-without-blocking-main-thread?noredirect=1&lq=1
@@ -116,18 +114,17 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     }
     
     func runTimer() {
-        DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {_ in
-                self.seconds += 1
-                if self.lives <= 0 {
-                    self.timer.invalidate()
-                    self.timerLabel.text = "game over!"
-                    self.canShoot = false
-                   // DispatchQueue.main.sync
-                    self.performSegue(withIdentifier: "gameOverView", sender: nil)
-                }
-            })
-        }
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {_ in
+            self.seconds += 1
+            if self.lives <= 0 {
+                self.timer.invalidate()
+                self.timerLabel.text = "game over!"
+                self.canShoot = false
+                print("hello")
+                self.performSegue(withIdentifier: "gameOverSegue", sender: String(self.score))
+                print("hi?")
+            }
+        })
     }
     
     func getUserPosition() -> SCNVector3 {
@@ -170,9 +167,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         
       
         hitTarget.addParticleSystem(explosion!)
-        
-       
-        playSound(sound : "balloon_pop", format: "mp3")
+        // playSound(sound : "balloon_pop", format: "mp3") – not working :/
         
         
         let numberOfNodes = numberOfActiveBalloonNodes()
@@ -217,17 +212,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             print("no sound")
         }
     }
-    
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
     
     func computeDistance(yourPos: SCNVector3, nodePos: SCNVector3) -> Float {
         return (pow(yourPos.x - nodePos.x, 2) + pow(yourPos.y - nodePos.y, 2) + pow(yourPos.z - nodePos.z, 2)).squareRoot()
@@ -350,6 +334,13 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
          print("interruption ended")
        
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "gameOverSegue" {
+            let gameOverController = segue.destination as! GameOverViewController
+            gameOverController.score = self.score
+        }
     }
     
 }
