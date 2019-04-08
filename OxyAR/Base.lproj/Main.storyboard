@@ -300,8 +300,9 @@
                                 <size key="shadowOffset" width="1" height="1"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="game over!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a57-aS-FOH">
-                                <rect key="frame" x="69" y="299" width="237" height="69"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="45"/>
+                                <rect key="frame" x="50" y="290" width="275" height="87"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="55"/>
                                 <color key="textColor" red="0.88436144589999999" green="0.1345295608" blue="0.1725742817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -313,11 +314,11 @@
                             <constraint firstItem="U5l-SR-LQ7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6x3-Ls-AME" secondAttribute="trailing" constant="8" symbolic="YES" id="0MA-uB-Orj"/>
                             <constraint firstItem="a57-aS-FOH" firstAttribute="centerY" secondItem="BrB-h1-WRS" secondAttribute="centerY" id="Kva-HJ-V8g"/>
                             <constraint firstItem="6x3-Ls-AME" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leadingMargin" id="OhR-Ly-W9p"/>
-                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="a57-aS-FOH" secondAttribute="bottom" constant="299" id="S4M-VB-3Wr"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="a57-aS-FOH" secondAttribute="bottom" constant="290" id="S4M-VB-3Wr"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="Tvl-uz-qHp"/>
                             <constraint firstItem="a57-aS-FOH" firstAttribute="centerX" secondItem="BrB-h1-WRS" secondAttribute="centerX" id="XRi-FZ-bCr"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="U5l-SR-LQ7" secondAttribute="trailing" constant="47" id="Xpt-SK-zba"/>
-                            <constraint firstItem="a57-aS-FOH" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="69" id="aCC-Hx-g1Y"/>
+                            <constraint firstItem="a57-aS-FOH" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="50" id="aCC-Hx-g1Y"/>
                             <constraint firstItem="6x3-Ls-AME" firstAttribute="centerY" secondItem="mvq-1J-MQB" secondAttribute="centerY" id="bUX-C4-hP4"/>
                             <constraint firstItem="a57-aS-FOH" firstAttribute="centerY" secondItem="U0K-SW-4ec" secondAttribute="centerY" id="iOM-p3-kCn"/>
                             <constraint firstItem="mvq-1J-MQB" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="5" id="ltI-Fo-lU3"/>
@@ -334,7 +335,7 @@
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
                         <outlet property="scoreLabel" destination="6x3-Ls-AME" id="618-Zr-8QV"/>
                         <outlet property="timerLabel" destination="a57-aS-FOH" id="BGM-zF-TMt"/>
-                        <segue destination="KEO-AI-Ath" kind="presentation" identifier="gameOverSegue" id="tJw-8f-WTX"/>
+                        <segue destination="KEO-AI-Ath" kind="presentation" identifier="gameOverSegue" modalTransitionStyle="crossDissolve" id="tJw-8f-WTX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

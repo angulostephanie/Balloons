@@ -11,9 +11,12 @@ import Foundation
 struct Constants {
     static let lives = 3
     // projectile speed
-    static let speedConstant: Float = -7.0
+    static let speedConstant: Float = -8.0
     // remove projectile after they exceed this distance
     static let maxProjectileDistance: Float = 3.5
     // remove balloons after they exceed this height
-    static let maxBalloonHeight: Float = 1.4
+    static let maxBalloonHeight: Float = 1.7
+    
+    // remove balloons after they
+    static let minBalloonDistance: Float = 0.12
 }

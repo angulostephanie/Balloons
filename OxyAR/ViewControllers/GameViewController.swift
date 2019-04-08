@@ -10,6 +10,7 @@ import UIKit
 import SceneKit
 import ARKit
 import AudioToolbox
+import AVFoundation
 
 class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
     
@@ -18,14 +19,13 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var livesLabel: UILabel!
     
-    var canShoot: Bool = true
+    var canShoot: Bool = false
     var lives: Int = 3
     var timer: Timer = Timer()
     var seconds: Int = 0
     var score: Int = 0
     
     var balloonsLowerBound: Int = 1
-    var balloonsUpperBound: Int = 2
     
     var hit: Int = 0
     
@@ -43,8 +43,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         sceneView.scene = SCNScene()
         sceneView.scene.physicsWorld.contactDelegate = self
 
-        
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +51,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
 
         runTimer()
         startGame()
+        canShoot = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -60,12 +59,75 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         sceneView.session.pause()
     }
 
+    
+    @IBAction func onTap(_ sender: Any) {
+        fireBall()
+    }
+    
     func startGame() {
         addNewTarget()
     }
     
-    @IBAction func onTap(_ sender: Any) {
-        fireBall()
+    func setupSessionConfiguration()  {
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.environmentTexturing = .automatic
+        configuration.planeDetection = [.vertical]
+        sceneView.session.run(configuration)
+    }
+    
+    func addNewTarget() {
+        // https://developer.apple.com/documentation/scenekit/scnscene/1524029-rootnode
+        // "All scene content—nodes, geometries and their materials, lights, cameras, and related objects—is
+        // organized in a node hierarchy with a single common root node."
+        
+        if lives > 0 {
+            canShoot = true
+            let balloons = determineNumberOfNewBalloons()
+            print("ADDING THIS MANY BALLOONS")
+            print(balloons)
+            for _ in 1...balloons {
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: {
+                    // https://stackoverflow.com/questions/41180748/how-to-add-scnnodes-without-blocking-main-thread?noredirect=1&lq=1
+                    // creating nodes should be done on a background thread
+                    let speed = 1.0 + (Double(Int(self.score / 5)) * 0.1)
+                    let target : SCNNode = Target(speed: speed).targetNode!
+                    DispatchQueue.main.async {
+                        self.sceneView.scene.rootNode.addChildNode(target)
+                    }
+                })
+            }
+        } else {
+            self.canShoot = false
+        }
+    }
+    
+    func fireBall() {
+        if canShoot {
+            DispatchQueue.global(qos: .background).async {
+                let ball = Projectile()
+                ball.position = self.getUserPosition()
+                ball.physicsBody?.applyForce(self.getProjectileDirectionFromUserOrientation(), asImpulse: true)
+                DispatchQueue.main.async {
+                    self.sceneView.scene.rootNode.addChildNode(ball)
+                }
+            }
+            canShoot = false
+        }
+    }
+    
+    func runTimer() {
+        DispatchQueue.main.async {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {_ in
+                self.seconds += 1
+                if self.lives <= 0 {
+                    self.timer.invalidate()
+                    self.timerLabel.text = "game over!"
+                    self.canShoot = false
+                   // DispatchQueue.main.sync
+                    self.performSegue(withIdentifier: "gameOverView", sender: nil)
+                }
+            })
+        }
     }
     
     func getUserPosition() -> SCNVector3 {
@@ -87,67 +149,15 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         return SCNVector3(0, 0, -1)
     }
     
-    func fireBall() {
-        if canShoot {
-            let ball = Projectile()
-            ball.position = getUserPosition()
-            ball.physicsBody?.applyForce(getProjectileDirectionFromUserOrientation(), asImpulse: true)
-            sceneView.scene.rootNode.addChildNode(ball)
-            canShoot = false
-        }
-    }
-    
-    func runTimer() {
-        DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {_ in
-                self.seconds += 1
-               // print(self.seconds)
-                if self.lives == 0 {
-                    self.timer.invalidate()
-                    self.timerLabel.text = "GAME OVER"
-                    // self.performSegue(withIdentifier: "gameOverSegue", sender: <#T##Any?#>)
-                }
-            })
-        }
-    }
-    
-    func addNewTarget() {
-        // https://developer.apple.com/documentation/scenekit/scnscene/1524029-rootnode
-        // "All scene content—nodes, geometries and their materials, lights, cameras, and related objects—is
-        // organized in a node hierarchy with a single common root node."
-        
-        if lives > 0 {
-            canShoot = true
-            let balloons = determineNumberOfNewBalloons()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-                for _ in 1...balloons {
-                    let speed = 1.0 + (Double(self.score % 5) * 0.1)
-                    let target : SCNNode = Target(speed: speed).targetNode!
-                    self.sceneView.scene.rootNode.addChildNode(target)
-                }
-            })
-        } else {
-            self.canShoot = false
-        }
-    }
-    
     func determineNumberOfNewBalloons() -> Int {
-        let x = score % 10
-        return Int.random(in: balloonsLowerBound ... balloonsUpperBound + x)
-    }
-    
-    func setupSessionConfiguration()  {
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
-        configuration.environmentTexturing = .automatic
-        sceneView.session.run(configuration)
+        let x = score / 10
+        return Int.random(in: balloonsLowerBound ... balloonsLowerBound + x + 1)
     }
     
     
     // MARK: - Contact Delegate
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        // http://sfbgames.com/chiptone/
         var projectile: SCNNode = contact.nodeA
         var hitTarget: SCNNode = contact.nodeB
         
@@ -159,29 +169,53 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         let explosion = SCNParticleSystem(named: "explode3", inDirectory: "art.scnassets")
         
       
-        projectile.addParticleSystem(explosion!)
+        hitTarget.addParticleSystem(explosion!)
         
-        let numberOfNodes = self.sceneView.scene.rootNode.childNodes.count
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
-            projectile.removeFromParentNode()
-            self.canShoot = true
-            if numberOfNodes < 3 {
-                print("number of nodes currently???")
-                print(numberOfNodes)
-                self.addNewTarget()
-            } else {
-                print("number of nodes currently")
-                print(numberOfNodes)
-            }
-        })
+       
+        playSound(sound : "balloon_pop", format: "mp3")
         
+        
+        let numberOfNodes = numberOfActiveBalloonNodes()
         DispatchQueue.main.async {
             hitTarget.removeFromParentNode()
             self.score += 1
             self.scoreLabel.text = String(self.score)
+            projectile.removeFromParentNode()
+            self.canShoot = true
+            if numberOfNodes < 2 {
+                print("BALLO0N WAS HIT - number of nodes currently???")
+                print(numberOfNodes)
+                self.addNewTarget()
+            }
         }
         
-            
+    }
+    
+    func numberOfActiveBalloonNodes() -> Int {
+        return self.sceneView.scene.rootNode.childNodes.filter({ $0.name == "Target" }).count
+    }
+    
+    // https://stackoverflow.com/questions/32036146/how-to-play-a-sound-using-swift
+    func playSound(sound : String, format: String) {
+        var player: AVAudioPlayer?
+        if let url = Bundle.main.url(forResource: sound, withExtension: format) {
+            do {
+                print("url")
+                print(url)
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+                try AVAudioSession.sharedInstance().setActive(true)
+                
+                player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+                
+                guard let player = player else { return }
+                player.play()
+                print("playing?")
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        } else {
+            print("no sound")
+        }
     }
     
     // MARK: - ARSCNViewDelegate
@@ -194,6 +228,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         return node
     }
 */
+    
     func computeDistance(yourPos: SCNVector3, nodePos: SCNVector3) -> Float {
         return (pow(yourPos.x - nodePos.x, 2) + pow(yourPos.y - nodePos.y, 2) + pow(yourPos.z - nodePos.z, 2)).squareRoot()
     }
@@ -201,21 +236,26 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if let arr: [SCNNode] = getCloseTargets() {
             for target in arr {
-                self.hit += 1
                 DispatchQueue.main.async {
                     target.removeFromParentNode()
+                    print("too close")
                 }
             }
         }
         
         if let arr: [SCNNode] = getFarTargets() {
             for target in arr {
-                self.lives -= 1
+                if lives > 0 {
+                     self.lives -= 1
+                }
                 DispatchQueue.main.async {
                     AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                     self.livesLabel.text = String(self.lives)
                     target.removeFromParentNode()
-                    self.addNewTarget()
+                    let balloons = self.numberOfActiveBalloonNodes()
+                    if balloons < 2 {
+                        self.addNewTarget()
+                    }
                 }
             }
         }
@@ -229,7 +269,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     }
     
     func getCloseTargets() -> [SCNNode]? {
-        
         let tooCloseTargets = self.sceneView?.scene.rootNode.childNodes(passingTest: { (node, stop) -> Bool in
             if (node.name != nil) {
                 if (node.name == "Target") {
@@ -238,11 +277,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
                         let yourPosition = SCNVector3(matrix.m41, matrix.m42, matrix.m43)
                         let nodePosition = node.presentation.position
                         // https://stackoverflow.com/questions/52565937/arkit-after-apply-force-get-location-of-node
-                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) < 0.20) {
+                        if (computeDistance(yourPos: yourPosition, nodePos: nodePosition) < Constants.minBalloonDistance) {
                             return true
                         }
                     }
-                    
                 }
             }
             return false
@@ -270,7 +308,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             }
             return false
         })
-        
         return farAwayTargets
     }
     
@@ -279,7 +316,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             if (node.name != nil) {
                 if (node.name == "Projectile") {
                     if let frame = self.sceneView.session.currentFrame {
-                        // frame.camera.transform
                         let matrix = SCNMatrix4(frame.camera.transform)
                         let yourPosition = SCNVector3(matrix.m41, matrix.m42, matrix.m43)
                         let nodePosition = node.presentation.position
@@ -289,7 +325,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
                             return true
                         }
                     }
-                    
                 }
             }
             return false

@@ -14,6 +14,7 @@ import ARKit
 
 class Target: NSObject {
     var targetNode: SCNNode?
+    let colors: [UIColor]! = [UIColor.red, UIColor.blue, UIColor.green, UIColor.purple, UIColor.yellow, UIColor.magenta, UIColor.lightGray]
     
     init(speed: Double) {
         super.init()
@@ -27,8 +28,9 @@ class Target: NSObject {
         
         let posVector = createRandomPostition()
         let direction = createRandomForce(speed: speed)
+        
         node.geometry?.firstMaterial?.shininess = 0.5
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        node.geometry?.firstMaterial?.diffuse.contents = colors.randomElement()
       
         node.position = posVector
         node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
@@ -47,9 +49,9 @@ class Target: NSObject {
     }
     
     private func createRandomPostition () -> SCNVector3 {
-        let randomDouble = Double.random(in: -0.4...0.5)
-        let randomDouble2 = Double.random(in: -0.3...0.0)
-        let randomDouble3 = Double.random(in: -2 ... -1)
+        let randomDouble = Double.random(in: -1.3...1.3)
+        let randomDouble2 = Double.random(in: -0.8...0.0)
+        let randomDouble3 = Double.random(in: -1.9 ... -0.9)
         return SCNVector3(randomDouble, randomDouble2, randomDouble3)
     }
     
@@ -63,8 +65,8 @@ class Target: NSObject {
     
     
     private func addMovement(node: SCNNode) {
-        let moveLeft = SCNAction.move(by: SCNVector3(0.01, 0, 0.01), duration: 1)
-        let moveRight = SCNAction.move(by: SCNVector3(-0.01, -0.01, -0.01), duration: 1)
+        let moveLeft = SCNAction.move(by: SCNVector3(0.05, 0, 0.05), duration: 3)
+        let moveRight = SCNAction.move(by: SCNVector3(-0.05, -0.03, -0.05), duration: 3)
         let hoverSequence = SCNAction.sequence([moveLeft, moveRight])
         let loopSequence = SCNAction.repeatForever(hoverSequence)
         node.runAction(loopSequence)
