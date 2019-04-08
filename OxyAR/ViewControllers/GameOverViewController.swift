@@ -13,7 +13,9 @@ class GameOverViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var inputNameField: UITextField!
     
+    var target: UIImageView!
     var score: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         scoreLabel.text = String(score)
@@ -34,7 +36,6 @@ class GameOverViewController: UIViewController, UITextFieldDelegate {
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in print("cool") }))
                 self.present(alert, animated: true, completion: nil)
             } else if username.count < 2 {
-                print("username must be greater than 2 characters")
                 let alert = UIAlertController(title: "Invalid username", message: "Please enter in a username longer than 2 characters.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in print("cool") }))
                 self.present(alert, animated: true, completion: nil)

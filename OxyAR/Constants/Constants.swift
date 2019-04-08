@@ -19,4 +19,6 @@ struct Constants {
     
     // remove balloons after they
     static let minBalloonDistance: Float = 0.12
+    
+    static let targetImage = "target_aim.png"
 }

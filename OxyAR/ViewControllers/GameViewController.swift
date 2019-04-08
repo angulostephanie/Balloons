@@ -18,6 +18,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var livesLabel: UILabel!
+    @IBOutlet weak var targetImage: UIImageView!
     
     var canShoot: Bool = false
     var lives: Int = 3
@@ -31,7 +32,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        targetImage.isHidden = true
         scoreLabel.text = String(score)
         livesLabel.text = String(lives)
         timerLabel.text = ""
@@ -51,6 +52,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
 
         runTimer()
         startGame()
+        targetImage.isHidden = false
         canShoot = true
     }
     
@@ -118,9 +120,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             self.seconds += 1
             if self.lives <= 0 {
                 self.timer.invalidate()
+                self.targetImage.isHidden = true
                 self.timerLabel.text = "game over!"
                 self.canShoot = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                       self.performSegue(withIdentifier: "gameOverSegue", sender: String(self.score))
                 })
             }
@@ -178,8 +181,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             projectile.removeFromParentNode()
             self.canShoot = true
             if numberOfNodes < 2 {
-                print("BALLO0N WAS HIT - number of nodes currently???")
-                print(numberOfNodes)
                 self.addNewTarget()
             }
         }
@@ -195,8 +196,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
         var player: AVAudioPlayer?
         if let url = Bundle.main.url(forResource: sound, withExtension: format) {
             do {
-                print("url")
-                print(url)
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
                 try AVAudioSession.sharedInstance().setActive(true)
                 
@@ -204,12 +203,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
                 
                 guard let player = player else { return }
                 player.play()
-                print("playing?")
             } catch let error {
                 print(error.localizedDescription)
             }
-        } else {
-            print("no sound")
         }
     }
     
@@ -222,7 +218,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             for target in arr {
                 DispatchQueue.main.async {
                     target.removeFromParentNode()
-                    print("too close")
                 }
             }
         }
