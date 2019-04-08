@@ -14,7 +14,6 @@ class SplashViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         startGameBtn.layer.cornerRadius = 12
     }
     

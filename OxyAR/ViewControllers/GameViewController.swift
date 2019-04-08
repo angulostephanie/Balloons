@@ -26,9 +26,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     var seconds: Int = 0
     var score: Int = 0
     
-    var balloonsLowerBound: Int = 1
-    
-    var hit: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +83,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
             canShoot = true
             let balloons = determineNumberOfNewBalloons()
             for _ in 1...balloons {
-                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: {
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.7, execute: {
                     // https://stackoverflow.com/questions/41180748/how-to-add-scnnodes-without-blocking-main-thread?noredirect=1&lq=1
                     // creating nodes should be done on a background thread
                     let speed = 1.0 + (Double(Int(self.score / 5)) * 0.1)
@@ -151,7 +148,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     
     func determineNumberOfNewBalloons() -> Int {
         let x = score / 10
-        return Int.random(in: balloonsLowerBound ... balloonsLowerBound + x + 1)
+        return Int.random(in: Constants.balloonsLowerBound ... Constants.balloonsLowerBound + x + 1)
     }
     
     

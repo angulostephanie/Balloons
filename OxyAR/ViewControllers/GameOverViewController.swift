@@ -85,8 +85,6 @@ class GameOverViewController: UIViewController, UITextFieldDelegate {
                 if let error = error {
                     print("data was not successfully added.")
                     print(error)
-                } else {
-                    print("successfully added")
                 }
             })
             

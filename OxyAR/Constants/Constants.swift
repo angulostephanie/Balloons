@@ -9,7 +9,6 @@
 import Foundation
 
 struct Constants {
-    static let lives = 3
     // projectile speed
     static let speedConstant: Float = -8.0
     // remove projectile after they exceed this distance
@@ -20,5 +19,6 @@ struct Constants {
     // remove balloons after they
     static let minBalloonDistance: Float = 0.12
     
-    static let targetImage = "target_aim.png"
+    
+    static let balloonsLowerBound: Int = 1
 }
