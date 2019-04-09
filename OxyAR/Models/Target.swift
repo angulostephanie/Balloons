@@ -29,7 +29,8 @@ class Target: NSObject {
         let posVector = createRandomPostition()
         let direction = createRandomForce(speed: speed)
         
-        node.geometry?.firstMaterial?.shininess = 0.5
+        node.geometry?.firstMaterial?.shininess = 0.30
+        node.geometry?.firstMaterial?.transparency = 0.89
         node.geometry?.firstMaterial?.diffuse.contents = colors.randomElement()
       
         node.position = posVector
