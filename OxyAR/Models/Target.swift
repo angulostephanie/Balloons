@@ -30,13 +30,16 @@ class Target: NSObject {
         let direction = createRandomForce(speed: speed)
         
         node.geometry?.firstMaterial?.shininess = 0.30
-        node.geometry?.firstMaterial?.transparency = 0.89
+        node.geometry?.firstMaterial?.transparency = 0.9
         node.geometry?.firstMaterial?.diffuse.contents = colors.randomElement()
       
         node.position = posVector
         node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
         node.physicsBody?.damping = 0.0
         node.physicsBody?.isAffectedByGravity = false
+        /*
+         Bitmasks are necessary for collision detection
+         */
         node.physicsBody?.categoryBitMask = CollisionCategory.projectile.rawValue
         node.physicsBody?.contactTestBitMask = CollisionCategory.target.rawValue
     
@@ -50,17 +53,16 @@ class Target: NSObject {
     }
     
     private func createRandomPostition () -> SCNVector3 {
-        let randomDouble = Double.random(in: -1.5...1.5)
-        let randomDouble2 = Double.random(in: -0.8 ... -0.2)
-        let randomDouble3 = Double.random(in: -1.9 ... -1.3)
-        return SCNVector3(randomDouble, randomDouble2, randomDouble3)
+        let x = Double.random(in: -1.5...1.5)
+        let y = Double.random(in: -0.8 ... -0.2)
+        let z = Double.random(in: -1.9 ... -1.3)
+        return SCNVector3(x, y, z)
     }
     
     private func createRandomForce(speed: Double) -> SCNVector3 {
-        // .1 to .35
         let upperBound: Double = speed * 0.4
-        let randomDouble = Double.random(in: 0.25...upperBound)
-        return SCNVector3(0, randomDouble, 0)
+        let y = Double.random(in: 0.25...upperBound)
+        return SCNVector3(0, y, 0)
     }
     
     

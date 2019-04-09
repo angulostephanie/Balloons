@@ -11,9 +11,7 @@ import FirebaseDatabase
 
 class HighScoreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    
     @IBOutlet weak var highScoreTable: UITableView!
-    
     @IBOutlet weak var mainMenuBtn: UIButton!
     
     var players: [Player]! = []

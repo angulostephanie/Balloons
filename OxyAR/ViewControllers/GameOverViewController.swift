@@ -58,26 +58,6 @@ class GameOverViewController: UIViewController, UITextFieldDelegate {
         self.performSegue(withIdentifier: "mainMenuSegue", sender: nil)
     }
     
-    @objc func keyboard(notification:Notification) {
-        guard let keyboardReact = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        
-        if notification.name == UIResponder.keyboardWillShowNotification ||  notification.name == UIResponder.keyboardWillChangeFrameNotification {
-            self.view.frame.origin.y = -keyboardReact.height
-        } else {
-            self.view.frame.origin.y = 0
-        }
-        
-    }
-    // https://stackoverflow.com/questions/24126678/close-ios-keyboard-by-touching-anywhere-using-swift
-    func hideKeyboardWhenOutsideTap() {
-        let tapGesture = UITapGestureRecognizer(target: self,
-                                                action: #selector(hideKeyboard))
-        view.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func hideKeyboard() {
-        view.endEditing(true)
-    }
     func addScoreToDatabase(username: String!) {
         DispatchQueue.global().async {
             let ref: DatabaseReference! = Database.database().reference()
@@ -91,4 +71,25 @@ class GameOverViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // https://stackoverflow.com/questions/24126678/close-ios-keyboard-by-touching-anywhere-using-swift
+    func hideKeyboardWhenOutsideTap() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func keyboard(notification:Notification) {
+        guard let keyboardReact = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        
+        if notification.name == UIResponder.keyboardWillShowNotification ||  notification.name == UIResponder.keyboardWillChangeFrameNotification {
+            self.view.frame.origin.y = -keyboardReact.height
+        } else {
+            self.view.frame.origin.y = 0
+        }
+        
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
 }

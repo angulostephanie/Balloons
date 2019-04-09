@@ -218,7 +218,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContact
     
     func computeDistance(yourPos: SCNVector3, nodePos: SCNVector3) -> Float {
         /*
-         
+         Good ol' Pythagorean theorem in 3D space.
          */
         return (pow(yourPos.x - nodePos.x, 2) + pow(yourPos.y - nodePos.y, 2) + pow(yourPos.z - nodePos.z, 2)).squareRoot()
     }
