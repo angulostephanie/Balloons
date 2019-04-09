@@ -47,7 +47,7 @@ class Target: NSObject {
         
         node.name = "Target"
         
-        addMovement(node: node)
+        // addMovement(node: node)
        
         return node
     }
